@@ -77,7 +77,9 @@
 				show_buttons: true,
 				show_recomended_list: false,
 				list: [],
-				list_type: false
+				list_type: false,
+				vehicles: [],
+				missions: []
 			}
 		},
 		methods: {
@@ -85,23 +87,35 @@
 				this.show_recomended_list = true
 				this.show_buttons = false
 				this.list_type = 'vehicles'
-				axios.get(`http://15.188.10.32/api/getAllVehicles`)
-					.then(response => {
-						this.list = response.data.vehicles
-					}).catch(e => {
-						console.log(e.response);
-					});
+				if(this.vehicles.length == 0){
+					axios.get(`http://15.188.10.32/api/getAllVehicles`)
+						.then(response => {
+							this.vehicles = response.data.vehicles
+							this.list = response.data.vehicles
+						}).catch(e => {
+							console.log(e.response);
+						});
+				}else{
+					this.list = this.vehicles
+				}
 			},
 			searchMissions: function(){
 				this.show_recomended_list = true
 				this.show_buttons = false
 				this.list_type = 'missions'
+
+					
+				if(this.missions.length == 0){
 				axios.get(`http://15.188.10.32/api/getAllMissions`)
 					.then(response => {
+						this.missions = response.data.vehicles
 						this.list = response.data.missions
 					}).catch(e => {
 						console.log(e.response);
 					});
+				}else{
+					this.list = this.missions
+				}
 			},
 			searchMissionByVehicle: function(vehicle){
 				this.show_recomended_list = false
