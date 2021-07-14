@@ -85,7 +85,7 @@
 				this.show_recomended_list = true
 				this.show_buttons = false
 				this.list_type = 'vehicles'
-				axios.get(`http://localhost/api/getAllVehicles`)
+				axios.get(`http://15.188.10.32/api/getAllVehicles`)
 					.then(response => {
 						this.list = response.data.vehicles
 					}).catch(e => {
@@ -96,7 +96,7 @@
 				this.show_recomended_list = true
 				this.show_buttons = false
 				this.list_type = 'missions'
-				axios.get(`http://localhost/api/getAllMissions`)
+				axios.get(`http://15.188.10.32/api/getAllMissions`)
 					.then(response => {
 						this.list = response.data.missions
 					}).catch(e => {
@@ -106,7 +106,7 @@
 			searchMissionByVehicle: function(vehicle){
 				this.show_recomended_list = false
 				this.list_type = 'vehicle_mission'
-				axios.get(`http://localhost/api/getMissionsByVehicle/${vehicle.id}`)
+				axios.get(`http://15.188.10.32/api/getMissionsByVehicle/${vehicle.id}`)
 					.then(response => {
 						this.list = response.data.missions
 						this.show_recomended_list = true

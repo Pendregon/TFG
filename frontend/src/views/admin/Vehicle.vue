@@ -31,7 +31,7 @@ export default {
         VehicleInfo
     },
     beforeMount (){
-        axios.get(`http://localhost/api/admin/vehicle/${this.$route.params.id}`)
+        axios.get(`http://15.188.10.32/api/admin/vehicle/${this.$route.params.id}`)
         .then(response => {
             this.vehicle = response.data.data
         }).catch(e => {
@@ -46,7 +46,7 @@ export default {
     props:['user_perms'],
     methods: {
         editVehicle: function(input_vehicle){
-            axios.put(`http://localhost/api/admin/vehicle/${this.$route.params.id}`, input_vehicle)
+            axios.put(`http://15.188.10.32/api/admin/vehicle/${this.$route.params.id}`, input_vehicle)
                 .then(() => {
                     this.vehicle.name = input_vehicle.name
                     this.vehicle.boat_mark_color = input_vehicle.boat_mark_color
@@ -55,7 +55,7 @@ export default {
                 });
         },
         deleteVehicle: function(){
-            axios.delete(`http://localhost/api/admin/vehicle/${this.$route.params.id}`)
+            axios.delete(`http://15.188.10.32/api/admin/vehicle/${this.$route.params.id}`)
                 .then(() => {
                     this.$router.push({name:'AdminVehicles'})
                 }).catch(e => {

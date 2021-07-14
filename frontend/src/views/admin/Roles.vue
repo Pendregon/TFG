@@ -40,7 +40,7 @@ export default {
 				}
 			]
 		}
-        axios.get('http://localhost/api/admin/role/getAll')
+        axios.get('http://15.188.10.32/api/admin/role/getAll')
             .then(response => {
                 this.roles = response.data.data
             }).catch(e => {
@@ -56,7 +56,7 @@ export default {
     },
     methods: {
         addRole: function(input_role){
-            axios.post(`http://localhost/api/admin/role`, input_role)
+            axios.post(`http://15.188.10.32/api/admin/role`, input_role)
                 .then(response => {
                     this.roles = response.data.data
                 }).catch(e => {
@@ -64,7 +64,7 @@ export default {
                 });
         },
         editRole: function(input_role){
-            axios.put(`http://localhost/api/admin/role/${input_role.id}`, input_role)
+            axios.put(`http://15.188.10.32/api/admin/role/${input_role.id}`, input_role)
                 .then(response => {
                     this.roles = response.data.data
                 }).catch(e => {
@@ -72,7 +72,7 @@ export default {
                 });
         },
         deleteRole: function(input_role){
-            axios.delete(`http://localhost/api/admin/role/${input_role.id}`)
+            axios.delete(`http://15.188.10.32/api/admin/role/${input_role.id}`)
                 .then(response => {
                     this.roles = response.data.data
                 }).catch(e => {

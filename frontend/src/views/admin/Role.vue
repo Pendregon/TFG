@@ -31,7 +31,7 @@ export default {
         RoleInfo
     },
     beforeMount (){
-        axios.get(`http://localhost/api/admin/role/${this.$route.params.id}`)
+        axios.get(`http://15.188.10.32/api/admin/role/${this.$route.params.id}`)
             .then(response => {
                 this.role = response.data.data
             }).catch(e => {
@@ -46,7 +46,7 @@ export default {
     props:['user_perms'],
     methods: {
         editRole: function(input_role){
-            axios.put(`http://localhost/api/admin/role/${this.$route.params.id}`, input_role)
+            axios.put(`http://15.188.10.32/api/admin/role/${this.$route.params.id}`, input_role)
                 .then(() => {
                     this.role.name = input_role.name
                     this.role.display_name = input_role.display_name
@@ -55,7 +55,7 @@ export default {
                 });
         },
         deleteRole: function(input_role){
-            axios.delete(`http://localhost/api/admin/role/${input_role.id}`)
+            axios.delete(`http://15.188.10.32/api/admin/role/${input_role.id}`)
                 .then(() => {
                     this.$router.push({name:'AdminRoles'})
                 }).catch(e => {
