@@ -56,6 +56,8 @@
 		<div v-if="show_recomend_search && search_text == ''">
 			<RecomendSearch 
 				@add="$emit('add', $event)"
+				:missions="missions"
+				:vehicles="vehicles"
 			/>
 		</div>
 	</div>
@@ -182,7 +184,9 @@
 			return {
 				search_text: '',
 				search_result: false,
-				keyup_timeout: false
+				keyup_timeout: false,
+				missions: [],
+				vehicles:[]
 			}
 		},
 		methods: {

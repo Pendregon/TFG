@@ -71,15 +71,13 @@
 			IconVehicles,
 			RecomendSearchList
 		},
-		props:[],
+		props:['missions','vehicles'],
 		data() {
 			return {
 				show_buttons: true,
 				show_recomended_list: false,
 				list: [],
 				list_type: false,
-				vehicles: [],
-				missions: []
 			}
 		},
 		methods: {
@@ -106,13 +104,13 @@
 
 					
 				if(this.missions.length == 0){
-				axios.get(`http://15.188.10.32/api/getAllMissions`)
-					.then(response => {
-						this.missions = response.data.vehicles
-						this.list = response.data.missions
-					}).catch(e => {
-						console.log(e.response);
-					});
+					axios.get(`http://15.188.10.32/api/getAllMissions`)
+						.then(response => {
+							this.missions = response.data.vehicles
+							this.list = response.data.missions
+						}).catch(e => {
+							console.log(e.response);
+						});
 				}else{
 					this.list = this.missions
 				}
