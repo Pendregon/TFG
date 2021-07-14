@@ -66,7 +66,7 @@
                 ]
             }
 
-            axios.get(`http://localhost:3000/admin/role/${this.$route.params.id}/perms`)
+            axios.get(`http://localhost/api/admin/role/${this.$route.params.id}/perms`)
                 .then(response => {
                     this.perms = response.data.data
                 }).catch(e => {
@@ -85,7 +85,7 @@
         },
         methods: {
             addPerm: function(item){
-                axios.put(`http://localhost:3000/admin/role/${this.$route.params.id}/perm/${item.id}`)
+                axios.put(`http://localhost/api/admin/role/${this.$route.params.id}/perm/${item.id}`)
                     .then(response => {
                         this.perms = response.data.data
                     }).catch(e => {
@@ -93,7 +93,7 @@
                     });
             },
             deletePerm: function(item){
-                axios.delete(`http://localhost:3000/admin/role/${this.$route.params.id}/perm/${item.id}`)
+                axios.delete(`http://localhost/api/admin/role/${this.$route.params.id}/perm/${item.id}`)
                     .then(response => {
                         this.perms = response.data.data
                     }).catch(e => {

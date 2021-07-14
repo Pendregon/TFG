@@ -123,7 +123,7 @@ export default {
 			},
 		]
 		this.menuData = []
-		axios.get(`http://localhost:3000/getPerms`)
+		axios.get(`http://localhost/api/getPerms`)
 			.then(response => {
 				localStorage.setItem('perms', response.data.perms)
 				let perms = JSON.parse(response.data.perms)

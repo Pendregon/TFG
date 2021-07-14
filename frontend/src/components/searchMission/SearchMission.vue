@@ -192,7 +192,7 @@
 					clearTimeout(this.keyup_timeout)
 				}
 				this.keyup_timeout = setTimeout(() => {
-					axios.post(`http://localhost:3000/searchForMission`,{
+					axios.post(`http://localhost/api/searchForMission`,{
 						search: this.search_text
 					})
 						.then(response => {

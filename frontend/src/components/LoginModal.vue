@@ -161,7 +161,7 @@
         props: [],
         methods: {
             checkLogin: function(e){
-                axios.post(`http://localhost:3000/login`, {email: this.email, password: this.password})
+                axios.post(`http://localhost/api/login`, {email: this.email, password: this.password})
                     .then(response => {
                         if(response.data.token){
                             localStorage.setItem('token', response.data.token);

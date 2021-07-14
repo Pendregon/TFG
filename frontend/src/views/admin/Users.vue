@@ -38,7 +38,7 @@ export default {
 				}
 			]
 		}
-        axios.get('http://localhost:3000/admin/user/getAll')
+        axios.get('http://localhost/api/admin/user/getAll')
             .then(response => {
                 this.users = response.data.data
             }).catch(e => {
@@ -53,7 +53,7 @@ export default {
     props:['user_perms'],
     methods: {
         addUser: function(input_user){
-            axios.post(`http://localhost:3000/admin/user`, input_user)
+            axios.post(`http://localhost/api/admin/user`, input_user)
                 .then(response => {
                     this.users = response.data.data
                 }).catch(e => {
@@ -62,7 +62,7 @@ export default {
         },
         editUser: function(input_user){
 			console.log(input_user)
-            axios.put(`http://localhost:3000/admin/user/${input_user.id}`, input_user)
+            axios.put(`http://localhost/api/admin/user/${input_user.id}`, input_user)
                 .then(response => {
                     this.users = response.data.data
                 }).catch(e => {
@@ -71,7 +71,7 @@ export default {
         },
         deleteUser: function(input_user){
 			console.log(input_user)
-            axios.delete(`http://localhost:3000/admin/user/${input_user.id}`)
+            axios.delete(`http://localhost/api/admin/user/${input_user.id}`)
                 .then(response => {
                     this.users = response.data.data
                 }).catch(e => {

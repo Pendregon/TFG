@@ -176,7 +176,7 @@ export default {
                 }
             ]
             
-            axios.get(`http://localhost:3000/admin/mission/${this.$route.params.id}/vehicles/getPossibleVehicles`)
+            axios.get(`http://localhost/api/admin/mission/${this.$route.params.id}/vehicles/getPossibleVehicles`)
                 .then(response => {
                     this.formData[0].fields[0].options = response.data.data
                 }).catch(e => {
@@ -200,7 +200,7 @@ export default {
                 }
             ]
             
-            axios.get(`http://localhost:3000/admin/role/${this.$route.params.id}/getPossiblePerms`)
+            axios.get(`http://localhost/api/admin/role/${this.$route.params.id}/getPossiblePerms`)
                 .then(response => {
                     this.formData[0].fields[0].options = response.data.data
                 }).catch(e => {
@@ -224,7 +224,7 @@ export default {
                 }
             ]
             
-            axios.get(`http://localhost:3000/admin/vehicle/${this.$route.params.id}/missions/getPossibleMissions`)
+            axios.get(`http://localhost/api/admin/vehicle/${this.$route.params.id}/missions/getPossibleMissions`)
                 .then(response => {
                     this.formData[0].fields[0].options = response.data.data
                 }).catch(e => {
@@ -292,7 +292,7 @@ export default {
             ]
         }else if(this.type =='addUser'){
             // let possible_roles = []
-            axios.get(`http://localhost:3000/admin/user/getRoles`)
+            axios.get(`http://localhost/api/admin/user/getRoles`)
                 .then(response => {
                     console.log(response)
                     this.formData[0].fields[3].options = response.data.data
@@ -337,7 +337,7 @@ export default {
                 }
             ]
         }else if(this.type =='editUser'){
-            axios.get(`http://localhost:3000/admin/user/getRoles`)
+            axios.get(`http://localhost/api/admin/user/getRoles`)
                 .then(response => {
                     this.formData[0].fields[3].options = response.data.data
                 }).catch(e => {

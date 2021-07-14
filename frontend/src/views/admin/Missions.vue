@@ -44,7 +44,7 @@ export default {
 				}
 			]
 		}
-        axios.get('http://localhost:3000/admin/mission/getAll')
+        axios.get('http://localhost/api/admin/mission/getAll')
             .then(response => {
                 this.missions = response.data.data
             }).catch(e => {
@@ -60,7 +60,7 @@ export default {
     },
     methods: {
         addMission: function(input_mission){
-            axios.post(`http://localhost:3000/admin/mission`, input_mission)
+            axios.post(`http://localhost/api/admin/mission`, input_mission)
                 .then(response => {
                     this.missions = response.data.data
                 }).catch(e => {
@@ -68,7 +68,7 @@ export default {
                 });
         },
         editMission: function(input_mission){
-            axios.put(`http://localhost:3000/admin/mission/${input_mission.id}`, input_mission)
+            axios.put(`http://localhost/api/admin/mission/${input_mission.id}`, input_mission)
                 .then(response => {
                     this.missions = response.data.data
                 }).catch(e => {
@@ -76,7 +76,7 @@ export default {
                 });
         },
         deleteMission: function(input_mission){
-            axios.delete(`http://localhost:3000/admin/mission/${input_mission.id}`)
+            axios.delete(`http://localhost/api/admin/mission/${input_mission.id}`)
                 .then(response => {
                     this.missions = response.data.data
                 }).catch(e => {
