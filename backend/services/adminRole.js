@@ -69,7 +69,7 @@ async function create(role){
     let data = false
     const result = await db.query(
         `INSERT INTO roles 
-        (name, display_name) 
+        (display_name) 
         VALUES 
         (?)`, 
         [
