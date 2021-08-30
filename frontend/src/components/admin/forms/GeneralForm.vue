@@ -71,21 +71,39 @@ export default {
                             name: "name",
                             label: "Nombre",
                             required: true,
-                            value: ""
+                            value: "",
+                            validation: (value) => {
+                                if(value.length > 20){
+                                    return "Este campo tiene como máximo 20 caracteres."
+                                }
+                                return true
+                            }
                         },
                         {
                             type: "textarea",
                             name: "description",
                             label: "Descripción",
                             required: true,
-                            value: ""
+                            value: "",
+                            validation: (value) => {
+                                if(value.length > 200){
+                                    return "Este campo tiene como máximo 200 caracteres."
+                                }
+                                return true
+                            }
                         },
                         {
                             type: "text",
                             name: "location",
                             label: "Localización",
                             required: true,
-                            value: ""
+                            value: "",
+                            validation: (value) => {
+                                if(value.length > 20){
+                                    return "Este campo tiene como máximo 20 caracteres."
+                                }
+                                return true
+                            }
                         },
                     ]
                 },
@@ -120,21 +138,39 @@ export default {
                             name: "name",
                             label: "Nombre",
                             required: true,
-                            value: this.data.name
+                            value: this.data.name,
+                            validation: (value) => {
+                                if(value.length > 20){
+                                    return "Este campo tiene como máximo 20 caracteres."
+                                }
+                                return true
+                            }
                         },
                         {
                             type: "textarea",
                             name: "description",
                             label: "Descripción",
                             required: true,
-                            value: this.data.description
+                            value: this.data.description,
+                            validation: (value) => {
+                                if(value.length > 200){
+                                    return "Este campo tiene como máximo 200 caracteres."
+                                }
+                                return true
+                            }
                         },
                         {
                             type: "text",
                             name: "location",
                             label: "Localización",
                             required: true,
-                            value: this.data.location
+                            value: this.data.location,
+                            validation: (value) => {
+                                if(value.length > 20){
+                                    return "Este campo tiene como máximo 20 caracteres."
+                                }
+                                return true
+                            }
                         },
                     ]
                 },
@@ -240,7 +276,13 @@ export default {
                             name: "name",
                             label: "Nombre",
                             required: true,
-                            value: ""
+                            value: "",
+                            validation: (value) => {
+                                if(value.length > 20){
+                                    return "Este campo tiene como máximo 20 caracteres."
+                                }
+                                return true
+                            }
                         },
                         {
                             type: "color",
@@ -271,7 +313,13 @@ export default {
                             name: "name",
                             label: "Nombre",
                             required: true,
-                            value: this.data.name
+                            value: this.data.name,
+                            validation: (value) => {
+                                if(value.length > 20){
+                                    return "Este campo tiene como máximo 20 caracteres."
+                                }
+                                return true
+                            }
                         },
                         {
                             type: "color",
@@ -308,21 +356,51 @@ export default {
                             name: "name",
                             label: "Nombre",
                             required: true,
-                            value: ''
+                            value: '',
+                            validation: (value) => {
+                                if(value.length > 20){
+                                    return "Este campo tiene como máximo 20 caracteres."
+                                }
+                                return true
+                            }
                         },
                         {
                             type: "text",
                             name: "email",
                             label: "Correo",
                             required: true,
-                            value: ''
+                            value: '',
+                            validation: (value) => {
+                                const email = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                if(!email.test(value.toLowerCase())){
+                                    return "Este campo debe contener un email válido."
+                                }
+                                return true
+                            }
                         },
                         {
                             type: "password",
                             name: "password",
                             label: "Contraseña",
                             required: true,
-                            value: ''
+                            value: '',
+                            validation: (value) => {
+                                const special_characters = /[ `¿¡!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
+                                const numbers = /[0123456789]+/;
+                                const letters = /[abcdefghijklmnñopqrstuvwxyz]+/;
+                                if(value.length < 6){
+                                    return "Este campo tiene como mínimo 6 caracteres."
+                                }else if(value.length > 20){
+                                    return "Este campo tiene como máximo 20 caracteres."
+                                }else if(!special_characters.test(value)){
+                                    return "Este campo debe contener al menos un símbolo."
+                                }else if(!numbers.test(value)){
+                                    return "Este campo debe contener al menos un número."
+                                }else if(!letters.test(value)){
+                                    return "Este campo debe contener al menos una letra."
+                                }
+                                return true
+                            }
                         },
                         {
                             type: "select",
@@ -352,21 +430,51 @@ export default {
                             name: "name",
                             label: "Nombre",
                             required: true,
-                            value: this.data.name
+                            value: this.data.name,
+                            validation: (value) => {
+                                if(value.length > 20){
+                                    return "Este campo tiene como máximo 20 caracteres."
+                                }
+                                return true
+                            }
                         },
                         {
                             type: "text",
                             name: "email",
                             label: "Correo",
                             required: true,
-                            value: this.data.email
+                            value: this.data.email,
+                            validation: (value) => {
+                                const email = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                                if(!email.test(value.toLowerCase())){
+                                    return "Este campo debe contener un email válido."
+                                }
+                                return true
+                            }
                         },
                         {
                             type: "password",
                             name: "password",
                             label: "Contraseña",
                             required: true,
-                            value: this.data.password
+                            value: this.data.password,
+                            validation: (value) => {
+                                const special_characters = /[ `¿¡!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
+                                const numbers = /[0123456789]+/;
+                                const letters = /[abcdefghijklmnñopqrstuvwxyz]+/;
+                                if(value.length < 6){
+                                    return "Este campo tiene como mínimo 6 caracteres."
+                                }else if(value.length > 20){
+                                    return "Este campo tiene como máximo 20 caracteres."
+                                }else if(!special_characters.test(value)){
+                                    return "Este campo debe contener al menos un símbolo."
+                                }else if(!numbers.test(value)){
+                                    return "Este campo debe contener al menos un número."
+                                }else if(!letters.test(value)){
+                                    return "Este campo debe contener al menos una letra."
+                                }
+                                return true
+                            }
                         },
                         {
                             type: "select",
@@ -387,17 +495,16 @@ export default {
                     fields: [
                         {
                             type: "text",
-                            name: "name",
-                            label: "Nombre BBDD",
-                            required: true,
-                            value: ''
-                        },
-                        {
-                            type: "text",
                             name: "display_name",
                             label: "Nombre de muestra",
                             required: true,
-                            value: ''
+                            value: '',
+                            validation: (value) => {
+                                if(value.length > 20){
+                                    return "Este campo tiene como máximo 20 caracteres."
+                                }
+                                return true
+                            }
                         },
                     ]
                 }
@@ -409,17 +516,16 @@ export default {
                     fields: [
                         {
                             type: "text",
-                            name: "name",
-                            label: "Nombre BBDD",
-                            required: true,
-                            value: this.data.name
-                        },
-                        {
-                            type: "text",
                             name: "display_name",
                             label: "Nombre de muestra",
                             required: true,
-                            value: this.data.display_name
+                            value: this.data.display_name,
+                            validation: (value) => {
+                                if(value.length > 20){
+                                    return "Este campo tiene como máximo 20 caracteres."
+                                }
+                                return true
+                            }
                         },
                     ]
                 }
@@ -448,21 +554,34 @@ export default {
                 if(result && element.value == '')
                     result = false
             })
+            if(result){
+                this.formData[this.currentPage-1].fields.forEach(field =>{
+                    if(result && field.validation && field.validation(field.value) != true){
+                        result = false
+                    }
+                })
+            }
             return result
         },
         nextPage: function() {
             if(this.currentPage == this.pages){
                 let res_data = {}
+                let pass_validation = true
                 this.formData.forEach(page => {
                     page.fields.forEach(field =>{
                         res_data[field.name] = field.value
+                        if(pass_validation && field.validation && field.validation(field.value) != true){
+                            pass_validation = false
+                        }
                     })
                 })
-                if(this.data)
-                    res_data.id = this.data.id
-                console.log(res_data)
-                this.$emit('formComplete', res_data)
-                this.$emit('close')
+                if(this.data) res_data.id = this.data.id
+                if(!pass_validation){
+                    console.log("No pasaaa!")
+                }else{
+                    this.$emit('formComplete', res_data)
+                    this.$emit('close')
+                }
             }else{
                 this.$el.querySelector(".modal-content:nth-child("+ this.currentPage +")").classList.remove("showing");
                 this.$el.querySelector(".modal-content:nth-child("+ (this.currentPage+1) +")").classList.add("showing");

@@ -71,9 +71,8 @@ async function create(role){
         `INSERT INTO roles 
         (name, display_name) 
         VALUES 
-        (?, ?)`, 
+        (?)`, 
         [
-            role.name,
             role.display_name,
         ]
     );
@@ -96,10 +95,9 @@ async function update(id, role){
     let data = false
     const result = await db.query(
         `UPDATE roles 
-        SET name=?, display_name=?
+        SET display_name=?
         WHERE id=?`, 
         [
-            role.name,
             role.display_name,
             id
         ]
