@@ -13,6 +13,7 @@
 			v-for="item in list" 
 			:key="item.id"
 			:title="item.name"
+			:live="item && item.start_date && item.end_date && new Date(item.start_date).getTime() <= new Date().getTime() && new Date().getTime() < new Date(item.end_date).getTime()"
 			:additional_info="item.description"
 			:buttons="type=='missions' || type=='vehicle_mission' ? [{text: 'Info',emit: 'additional_info'},{text: 'Add',emit: 'add', disabled: checkIfMissionButtonIsDisabled(item)}] : [{text: 'Search',emit: 'search_by_vehicle'}]"
 			@info="showInfo"

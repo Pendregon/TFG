@@ -148,6 +148,7 @@
 				show_waypoints: false,
 				show_wind: false,
 				recording_interval: 1000,
+				delay: 20000,
 				show_login: false,
 				show_recomend_search: false,
 			}
@@ -181,7 +182,7 @@
 			// }, 3000)
 			setInterval(() => {
 				this.missions.forEach(mission => {
-					if(mission.current_playing && mission.current_playing_date < new Date(mission.end_date).getTime()){
+					if(mission.current_playing && mission.current_playing_date < new Date(mission.end_date).getTime() && parseInt(mission.current_playing_date) + this.recording_interval < new Date().getTime() - this.delay){
 						mission.current_playing_date = parseInt(mission.current_playing_date) + this.recording_interval
 						mission.vehicles.forEach(vehicle => {
 							if(vehicle.current_playing_record < vehicle.records.length){
@@ -201,7 +202,8 @@
 						mission.vehicles.forEach(vehicle => {
 							axios.get(`http://15.188.10.32/api/getMissionsVehicleRecords/${mission.id}/${vehicle.id}`)
 								.then(response => {
-									mission.records = response
+									mission.records = response.data.data
+									console.log(mission.records)
 								}).catch(e => {
 									console.log(e);
 								});

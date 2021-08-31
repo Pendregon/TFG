@@ -1,6 +1,11 @@
 <template>
 	<div class="mission-container">
 		<div class="tag">
+			<div v-if="new Date(mission.start_date).getTime() <= new Date().getTime() && new Date().getTime() < new Date(mission.end_date).getTime()" class="live">
+				<svg viewBox="0 0 24 24">
+					<path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+				</svg>
+			</div>
 			<p>
 				{{mission.name}}
 			</p>
@@ -10,7 +15,7 @@
 				type="range" 
 				:min="new Date(mission.start_date).getTime()" 
 				:max="new Date(mission.end_date).getTime()" 
-				step="1" 
+				step="1000" 
 				v-model="mission.current_playing_date"
 				@change="calculateCurrentRecordPos"
 			>
@@ -44,6 +49,7 @@
 		.tag
 			display flex 
 			margin-right 10px
+			align-items center
 
 			&:hover
 				background-color rgba(255,255,255,0.3)
@@ -55,6 +61,13 @@
 				font-weight bold
 				letter-spacing 0.5px
 				font-size 0.8rem
+
+			.live svg
+				display flex
+				height 10px
+				width 10px
+				margin-right 5px
+				fill red
 
 		.tools
 			display flex
@@ -92,6 +105,7 @@
 				outline none
 
 				svg 
+					display flex
 					width 15px
 					fill second-color
 

@@ -1,6 +1,11 @@
 <template>
 	<div>
 		<div class="container">
+			<div v-if="live" class="live">
+				<svg viewBox="0 0 24 24">
+					<path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+				</svg>
+			</div>
 			<div class="info">
 				<p class="name">
 					{{title}}
@@ -27,6 +32,15 @@
 		display flex
 		margin-bottom 8px
 		min-height 35px
+
+		.live 
+			align-self center
+			svg
+				display flex
+				height 15px
+				width 15px
+				margin-right 15px
+				fill red
 
 		.info
 			flex-grow 1
@@ -71,7 +85,7 @@
 		name: `RecomendSearchListElement`, 
 		components: {
 		},
-		props:['title', 'additional_info','buttons'],
+		props:['title', 'additional_info', 'buttons', 'live'],
 		data() {
 			return {
 				show_additional_info: false

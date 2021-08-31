@@ -4,6 +4,9 @@
 			<img :src="mission.vehicles[0].image" alt="">
 			<div class="name-container">
 				<p class="boat-name">
+					<svg v-if="new Date(mission.start_date).getTime() <= new Date().getTime() && new Date().getTime() < new Date(mission.end_date).getTime()" class="live" viewBox="0 0 24 24">
+						<path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+					</svg>
 					{{mission.name}}
 				</p>
 				<p class="boat-mission-name">
@@ -71,6 +74,15 @@
 					font-weight bold
 					font-size 1.1rem
 					margin-bottom 5px
+					display flex
+
+					.live
+						align-self center
+						display flex
+						height 10px
+						width 10px
+						margin-right 10px
+						fill red
 
 				p
 					cursor context-menu
