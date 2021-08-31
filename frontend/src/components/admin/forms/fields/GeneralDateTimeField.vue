@@ -16,7 +16,7 @@
                 type="datetime-local"
             >
         </div>
-        <p v-if="validation != true" class="validation-error">
+        <p v-if="validation && validation != true" class="validation-error">
             *{{validation}}
         </p>
     </div>
@@ -28,6 +28,7 @@ export default {
     data() {
         return {
             is_focused: false,
+            validation: true
         }
     },
     methods: {

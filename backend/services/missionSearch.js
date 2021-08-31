@@ -5,7 +5,7 @@ const config = require('../config');
 async function search(text){
     let data = false
     let missions = await db.query(
-        `SELECT id, name, description, location,  timestampDIFF(SECOND,'001-01-01 00:00:00', start_date) as start_date,  timestampDIFF(SECOND,'001-01-01 00:00:00', end_date) as end_date, is_public 
+        `SELECT id, name, description, location, start_date as gg, timestampDIFF(SECOND,'001-01-01 00:00:00', start_date) as start_date,  timestampDIFF(SECOND,'001-01-01 00:00:00', end_date) as end_date, is_public 
         FROM missions 
         WHERE name LIKE '%${text}%'`
     );

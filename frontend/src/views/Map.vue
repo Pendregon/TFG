@@ -193,6 +193,16 @@
 					}
 				});
 			}, 1000)
+			setInterval(() => {
+				let now = new Date()
+				this.missions.forEach(mission => {
+					console.log(mission)
+					console.log(now.getTime())
+					console.log(now.toLocaleString())
+					console.log(new Date(mission.start_date*1000).getTime())
+					console.log(new Date(mission.start_date*1000).toLocaleString())
+				});
+			}, 5000)
 		},
 		methods: {
 			showBoatInfo : function (boat){

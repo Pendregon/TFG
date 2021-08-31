@@ -14,7 +14,7 @@
         </div>
         <div class="additional-info">
             <p v-for="add_info in item_additional_info" :key="add_info.id">
-                {{item[add_info]}}
+                {{add_info.includes('date') ? getFormatedDate(item[add_info]) : item[add_info]}}
             </p>
         </div>
         <div class="admin-item-tools">
@@ -42,6 +42,9 @@
 
             p
                 margin 0
+                margin-right 15px
+                font-weight bold
+                font-size 1.2rem
                 
         img
             border-radius 5px
@@ -142,6 +145,12 @@ export default {
     components:{
         EditIcon,
         DeleteIcon
+    },
+    methods: {
+        getFormatedDate: function(date){
+            const new_date = new Date(date)
+            return `${new_date.getDate()}/${new_date.getMonth()+1}/${new_date.getFullYear()}`
+        }
     },
 }
 </script>
