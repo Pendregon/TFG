@@ -22,7 +22,7 @@ async function search(text){
         );
         await asyncForEach(mission.vehicles, async (vehicle) => {
             vehicle.records = [ ... await db.query(
-                `SELECT record_sensor.sensor_id, record_sensor.sensor_type, timestampDIFF(SECOND,'001-01-01 00:00:00', records.timestamp) as timestamp, records.timestamp as date
+                `SELECT record_sensor.sensor_id, record_sensor.sensor_type, records.timestamp as timestamp, records.timestamp as date
                 FROM records 
                 JOIN record_sensor ON records.id=record_sensor.record_id
                 WHERE records.mission_id=? AND records.vehicle_id=?`,
@@ -83,7 +83,7 @@ async function getAllMissions(){
         );
         await asyncForEach(mission.vehicles, async (vehicle) => {
             vehicle.records = [ ... await db.query(
-                `SELECT record_sensor.sensor_id, record_sensor.sensor_type, timestampDIFF(SECOND,'001-01-01 00:00:00', records.timestamp) as timestamp, records.timestamp as date
+                `SELECT record_sensor.sensor_id, record_sensor.sensor_type, records.timestamp as timestamp, records.timestamp as date
                 FROM records 
                 JOIN record_sensor ON records.id=record_sensor.record_id
                 WHERE records.mission_id=? AND records.vehicle_id=?`,
@@ -170,7 +170,7 @@ async function getMissionsByVehicleId(vehicle_id){
         );
         await asyncForEach(mission.vehicles, async (vehicle) => {
             vehicle.records = [ ... await db.query(
-                `SELECT record_sensor.sensor_id, record_sensor.sensor_type, timestampDIFF(SECOND,'001-01-01 00:00:00', records.timestamp) as timestamp, records.timestamp as date
+                `SELECT record_sensor.sensor_id, record_sensor.sensor_type, records.timestamp as timestamp, records.timestamp as date
                 FROM records 
                 JOIN record_sensor ON records.id=record_sensor.record_id
                 WHERE records.mission_id=? AND records.vehicle_id=?`,

@@ -180,11 +180,16 @@
 			// }, 3000)
 			setInterval(() => {
 				this.missions.forEach(mission => {
+					console.log("LLEGAMOS 1")
 					if(mission.current_playing && mission.current_playing_date < new Date(mission.end_date).getTime()){
+						console.log("LLEGAMOS 2")
 						mission.current_playing_date = parseInt(mission.current_playing_date) + this.recording_interval
 						mission.vehicles.forEach(vehicle => {
+							console.log("LLEGAMOS 3")
 							if(vehicle.current_playing_record < vehicle.records.length){
+								console.log("LLEGAMOS 4")
 								while(vehicle.records[vehicle.current_playing_record + 1] && vehicle.records[vehicle.current_playing_record + 1].timestamp <= mission.current_playing_date){
+									console.log("LLEGAMOS 5")
 									vehicle.current_playing_record++
 									vehicle.latLngs = vehicle.latLngs.concat([[vehicle.records[vehicle.current_playing_record].latitude, vehicle.records[vehicle.current_playing_record].longitude]])
 								}
@@ -192,8 +197,10 @@
 						})
 					}
 				});
+				console.log("LLEGAMOS 6")
 			}, 1000)
 			setInterval(() => {
+				console.log(this.missions)
 				let now = new Date()
 				this.missions.forEach(mission => {
 					console.log(now.getTime())
