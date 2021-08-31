@@ -200,10 +200,44 @@ async function getMissionsByVehicleId(vehicle_id){
         meta
     }
 }
+async function getMissionsVehicleRecords(mission_id, vehicle_id){
+    let data = false
+    let records = await db.query(
+        `SELECT record_sensor.sensor_id, record_sensor.sensor_type, records.timestamp as timestamp, records.timestamp as date
+        FROM records 
+        JOIN record_sensor ON records.id=record_sensor.record_id
+        WHERE records.mission_id=? AND records.vehicle_id=?`,
+        [
+            mission_id,
+            vehicle_id
+        ]
+    );
+    data = helper.emptyOrRows(records);
+    await asyncForEach(data, async (record, index) => {
+        let aux = await db.query(
+            `SELECT * 
+            FROM ${record.sensor_type} 
+            WHERE id=?`,
+            [
+                record.sensor_id
+            ]
+        );
+        aux[0].timestamp = record.timestamp
+        aux[0].date = record.date
+        data[index] = aux[0]
+    })
+
+    const meta = {};
+    return {
+        data,
+        meta
+    }
+}
 
 module.exports = {
     search,
     getAllMissions,
     getAllVehicles,
-    getMissionsByVehicleId
+    getMissionsByVehicleId,
+    getMissionsVehicleRecords
 }

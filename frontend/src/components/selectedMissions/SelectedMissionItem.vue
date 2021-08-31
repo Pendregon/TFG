@@ -8,8 +8,8 @@
 		<div class="tools">
 			<input 
 				type="range" 
-				:min="mission.start_date" 
-				:max="mission.end_date" 
+				:min="new Date(mission.start_date).getTime()" 
+				:max="new Date(mission.end_date).getTime()" 
 				step="1" 
 				v-model="mission.current_playing_date"
 				@change="calculateCurrentRecordPos"
@@ -123,7 +123,7 @@
 				this.mission.vehicles.forEach(vehicle =>{
 					vehicle.latLngs = []
 					vehicle.records.forEach((record, index) =>{
-						if(record.timestamp <= this.mission.current_playing_date){
+						if(new Date(record.timestamp).getTime() <= this.mission.current_playing_date){
 							vehicle.current_playing_record = index
 							vehicle.latLngs = vehicle.latLngs.concat([[record.latitude,record.longitude]])
 						}
