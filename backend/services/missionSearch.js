@@ -148,7 +148,7 @@ async function asyncForEach(array, callback) {
 async function getMissionsByVehicleId(vehicle_id){
     let data = false
     let missions = await db.query(
-        `SELECT missions.id, missions.name, missions.description, missions.location,  timestampDIFF(SECOND,'001-01-01 00:00:00', missions.start_date) as start_date,  timestampDIFF(SECOND,'001-01-01 00:00:00', missions.end_date) as end_date, missions.is_public 
+        `SELECT missions.id, missions.name, missions.description, missions.location,  missions.start_date,  missions.end_date, missions.is_public 
         FROM mission_vehicle 
         JOIN missions ON mission_vehicle.mission_id=missions.id
         WHERE mission_vehicle.vehicle_id=?

@@ -180,7 +180,7 @@
 			// }, 3000)
 			setInterval(() => {
 				this.missions.forEach(mission => {
-					if(mission.current_playing_date < mission.end_date && mission.current_playing){
+					if(mission.current_playing && mission.current_playing_date < new Date(mission.end_date).getTime()){
 						mission.current_playing_date = parseInt(mission.current_playing_date) + this.recording_interval
 						mission.vehicles.forEach(vehicle => {
 							if(vehicle.current_playing_record < vehicle.records.length){
@@ -196,11 +196,9 @@
 			setInterval(() => {
 				let now = new Date()
 				this.missions.forEach(mission => {
-					console.log(mission)
 					console.log(now.getTime())
-					console.log(now.toLocaleString())
-					console.log(new Date(mission.gg).getTime())
-					console.log(new Date(mission.gg).toLocaleString())
+					console.log(new Date(mission.start_date).getTime())
+					console.log(new Date(mission.end_date).getTime())
 				});
 			}, 5000)
 		},
@@ -209,7 +207,7 @@
 				this.vehicle_info = boat
 			},
 			addMission : function (new_mission) {
-				new_mission.current_playing_date = new_mission.start_date
+				new_mission.current_playing_date = new Date(new_mission.start_date).getTime()
 				new_mission.current_playing = true
 				new_mission.vehicles.forEach(vehicle => {
 					vehicle.current_playing_record = 0
