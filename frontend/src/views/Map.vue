@@ -146,7 +146,7 @@
 				show_next_waypoint: false,
 				show_waypoints: false,
 				show_wind: false,
-				recording_interval: 1,
+				recording_interval: 1000,
 				show_login: false,
 				show_recomend_search: false,
 			}
@@ -199,8 +199,8 @@
 					console.log(mission)
 					console.log(now.getTime())
 					console.log(now.toLocaleString())
-					console.log(new Date(mission.start_date*1000).getTime())
-					console.log(new Date(mission.start_date*1000).toLocaleString())
+					console.log(new Date(mission.gg).getTime())
+					console.log(new Date(mission.gg).toLocaleString())
 				});
 			}, 5000)
 		},
