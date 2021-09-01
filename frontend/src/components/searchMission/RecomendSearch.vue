@@ -13,6 +13,7 @@
 				v-if="show_recomended_list"
 				:list="list"
 				:type="list_type"
+				:missions="selected_missions"
 				@add="$emit('add', $event)"
 				@search_by_vehicle="searchMissionByVehicle($event)"
 			/>
@@ -71,7 +72,7 @@
 			IconVehicles,
 			RecomendSearchList
 		},
-		props:['missions','vehicles'],
+		props:['missions','vehicles','selected_missions'],
 		data() {
 			return {
 				show_buttons: true,

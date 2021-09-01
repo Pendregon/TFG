@@ -49,6 +49,7 @@
 					v-for="mission in search_result"
 					:key="mission.id"
 					:mission="mission"
+					:can_add="missions.filter(e => e.id === mission.id).length == 0"
 					@add="$emit('add', $event)"
 				/>
 			</div>
@@ -56,6 +57,7 @@
 		<div v-if="show_recomend_search && search_text == ''">
 			<RecomendSearch 
 				@add="$emit('add', $event)"
+				:selected_missions="missions"
 				:missions="recomended_missions"
 				:vehicles="recomended_vehicles"
 			/>

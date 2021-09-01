@@ -73,7 +73,7 @@
 					background-color main-color
 				
 				&:disabled
-					background-color third-color
+					background-color gray
 					color second-color
 			
 			

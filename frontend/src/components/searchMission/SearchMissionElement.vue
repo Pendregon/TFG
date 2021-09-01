@@ -1,7 +1,7 @@
 <template>
 	<div :class="['element-container', show_additional_info ? 'additional_info':'']">
 		<div class="extract-container">
-			<img :src="mission.vehicles[0].image" alt="">
+			<!-- <img :src="mission.vehicles[0].image" alt=""> -->
 			<div class="name-container">
 				<p class="boat-name">
 					<svg v-if="new Date(mission.start_date).getTime() <= new Date().getTime() && new Date().getTime() < new Date(mission.end_date).getTime()" class="live" viewBox="0 0 24 24">
@@ -19,7 +19,7 @@
 						<path d="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
 					</svg>
 				</button>
-				<button @click="$emit('add', mission)">
+				<button @click="$emit('add', mission)" :disabled="!can_add || checkIfMissionButtonIsDisabled(mission)">
 					<svg viewBox="0 0 24 24">
 						<path d="M17,13H13V17H11V13H7V11H11V7H13V11H17M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
 					</svg>
@@ -68,7 +68,7 @@
 
 			.name-container
 				flex-grow 1
-				padding 5px 10px
+				padding 5px 10px 5px 0
 
 				.boat-name
 					font-weight bold
@@ -111,6 +111,9 @@
 						width 30px
 						fill second-color
 
+					&:disabled svg
+						fill gray
+
 
 		&.additional_info
 			background-color #95aebd
@@ -140,10 +143,29 @@
 <script>
 	export default {
 		name: 'SearchMissionElement', 
-		props: ['mission'],
+		props: ['mission', 'can_add'],
 		data() {
 			return {
 				show_additional_info: false
+			}
+		},
+		methods: {
+			
+			checkIfMissionButtonIsDisabled: function (item){
+				if(item.vehicles.length == 0){
+					return true
+				}else{
+					let some_vehicle_have_records = false
+					item.vehicles.forEach(vehicle => {
+						if(vehicle.records.length > 0){
+							some_vehicle_have_records = true
+						}
+					});
+					if(!some_vehicle_have_records){
+						return true
+					}
+				}
+				return false
 			}
 		},
 	}
