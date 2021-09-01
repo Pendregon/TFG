@@ -1,10 +1,11 @@
 <template>
 	<div id="app" :class="[is_admin_page() ? 'is_admin' : '']">
 		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link rel="manifest" href="manifest.json">
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> 
 		<Menu 
 			v-if="is_admin_page()" 
-			:menuData="menuData"
+			:menuData="menuData" 
 		/>
 		<router-view 
 			:user_perms="user_perms"
