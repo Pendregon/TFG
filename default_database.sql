@@ -159,7 +159,6 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `role_id`) VALUES
 CREATE TABLE IF NOT EXISTS `vehicles` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
-  `image` text NOT NULL,
   `route_color` text NOT NULL,
   `boat_mark_color` text NOT NULL,
   `boat_waypoint_color` text NOT NULL,
