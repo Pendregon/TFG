@@ -13,6 +13,16 @@ CREATE TABLE IF NOT EXISTS `missions` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
+CREATE TABLE IF NOT EXISTS `vehicles` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `route_color` text NOT NULL,
+  `boat_mark_color` text NOT NULL,
+  `boat_waypoint_color` text NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
 CREATE TABLE IF NOT EXISTS `mission_vehicle` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `mission_id` bigint(20) NOT NULL,
@@ -30,6 +40,14 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `type` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `display_name` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 INSERT INTO `permissions` (`id`, `name`, `type`) VALUES
 	(1, 'show_missions', 'missions'),
@@ -108,14 +126,6 @@ CREATE TABLE IF NOT EXISTS `record_sensor` (
   CONSTRAINT `record_sensor_record` FOREIGN KEY (`record_id`) REFERENCES `records` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS `roles` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) NOT NULL,
-  `display_name` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-
 INSERT INTO `roles` (`id`, `name`, `display_name`) VALUES
 	(1, 'admin', 'Administrador');
 
@@ -155,16 +165,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role_id`) VALUES
 	(1, 'usuario 1', 'test@test.com', '$2b$10$CfxtwEqgP1CAV5lBvE6/UeYGxtuPD62v7jWUWqsF.hIbe0TR8Sura', 1);
-
-CREATE TABLE IF NOT EXISTS `vehicles` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) NOT NULL,
-  `route_color` text NOT NULL,
-  `boat_mark_color` text NOT NULL,
-  `boat_waypoint_color` text NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `waypoints` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
