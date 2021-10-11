@@ -12,7 +12,7 @@ async function search(text){
     data = helper.emptyOrRows(missions);
     await asyncForEach(data, async (mission) => {
         mission.vehicles = await db.query(
-            `SELECT vehicles.id, vehicles.name, vehicles.image, vehicles.boat_mark_color, vehicles.boat_waypoint_color 
+            `SELECT vehicles.id, vehicles.name, vehicles.boat_mark_color, vehicles.boat_waypoint_color 
             FROM mission_vehicle 
             JOIN vehicles ON mission_vehicle.vehicle_id=vehicles.id
             WHERE mission_id=?`,
@@ -73,7 +73,7 @@ async function getAllMissions(){
     data = helper.emptyOrRows(missions);
     await asyncForEach(data, async (mission) => {
         mission.vehicles = await db.query(
-            `SELECT vehicles.id, vehicles.name, vehicles.image, vehicles.boat_mark_color, vehicles.boat_waypoint_color 
+            `SELECT vehicles.id, vehicles.name, vehicles.boat_mark_color, vehicles.boat_waypoint_color 
             FROM mission_vehicle 
             JOIN vehicles ON mission_vehicle.vehicle_id=vehicles.id
             WHERE mission_id=?`,
@@ -160,7 +160,7 @@ async function getMissionsByVehicleId(vehicle_id){
     data = helper.emptyOrRows(missions);
     await asyncForEach(data, async (mission) => {
         mission.vehicles = await db.query(
-            `SELECT vehicles.id, vehicles.name, vehicles.image, vehicles.boat_mark_color, vehicles.boat_waypoint_color 
+            `SELECT vehicles.id, vehicles.name, vehicles.boat_mark_color, vehicles.boat_waypoint_color 
             FROM mission_vehicle 
             JOIN vehicles ON mission_vehicle.vehicle_id=vehicles.id
             WHERE mission_id=?`,
