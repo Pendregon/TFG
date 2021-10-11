@@ -40,7 +40,7 @@ export default {
 				}
 			]
 		}
-        axios.get('https://atirma.iusiani.ulpgc.es:3000/admin/role/getAll')
+        axios.get('https://atirma.iusiani.ulpgc.es/api/admin/role/getAll')
             .then(response => {
                 this.roles = response.data.data
             }).catch(e => {
@@ -56,7 +56,7 @@ export default {
     },
     methods: {
         addRole: function(input_role){
-            axios.post(`https://atirma.iusiani.ulpgc.es:3000/admin/role`, input_role)
+            axios.post(`https://atirma.iusiani.ulpgc.es/api/admin/role`, input_role)
                 .then(response => {
                     this.roles = response.data.data
                 }).catch(e => {
@@ -64,7 +64,7 @@ export default {
                 });
         },
         editRole: function(input_role){
-            axios.put(`https://atirma.iusiani.ulpgc.es:3000/admin/role/${input_role.id}`, input_role)
+            axios.put(`https://atirma.iusiani.ulpgc.es/api/admin/role/${input_role.id}`, input_role)
                 .then(response => {
                     this.roles = response.data.data
                 }).catch(e => {
@@ -72,7 +72,7 @@ export default {
                 });
         },
         deleteRole: function(input_role){
-            axios.delete(`https://atirma.iusiani.ulpgc.es:3000/admin/role/${input_role.id}`)
+            axios.delete(`https://atirma.iusiani.ulpgc.es/api/admin/role/${input_role.id}`)
                 .then(response => {
                     this.roles = response.data.data
                 }).catch(e => {

@@ -32,7 +32,7 @@ export default {
     },
     props:['user_perms'],
     beforeMount (){
-        axios.get(`https://atirma.iusiani.ulpgc.es:3000/admin/mission/${this.$route.params.id}`)
+        axios.get(`https://atirma.iusiani.ulpgc.es/api/admin/mission/${this.$route.params.id}`)
             .then(response => {
                 this.mission = response.data.data
             }).catch(e => {
@@ -46,7 +46,7 @@ export default {
     },
     methods: {
         editMission: function(input_mission){
-            axios.put(`https://atirma.iusiani.ulpgc.es:3000/admin/mission/${this.$route.params.id}`, input_mission)
+            axios.put(`https://atirma.iusiani.ulpgc.es/api/admin/mission/${this.$route.params.id}`, input_mission)
                 .then(() => {
                     this.mission.name = input_mission.name
                     this.mission.description = input_mission.description
@@ -58,7 +58,7 @@ export default {
                 });
         },
         deleteMission: function(){
-            axios.delete(`https://atirma.iusiani.ulpgc.es:3000/admin/mission/${this.$route.params.id}`)
+            axios.delete(`https://atirma.iusiani.ulpgc.es/api/admin/mission/${this.$route.params.id}`)
                 .then(() => {
                     this.$router.push({name:'AdminMissions'})
                 }).catch(e => {

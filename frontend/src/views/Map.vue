@@ -200,7 +200,7 @@
 				this.missions.forEach(mission => {
 					if(mission.current_playing && new Date(mission.start_date).getTime() <= now.getTime() && now.getTime() < new Date(mission.end_date).getTime()){
 						mission.vehicles.forEach(vehicle => {
-							axios.get(`https://atirma.iusiani.ulpgc.es:3000/getMissionsVehicleRecords/${mission.id}/${vehicle.id}`)
+							axios.get(`https://atirma.iusiani.ulpgc.es/api/getMissionsVehicleRecords/${mission.id}/${vehicle.id}`)
 								.then(response => {
 									mission.records = response.data.data
 									console.log(mission.records)

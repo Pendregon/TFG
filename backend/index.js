@@ -18,16 +18,16 @@ app.use(
 );
 app.use(cors())
 
-app.get('/', (req, res) => {
+app.get('/api/', (req, res) => {
     res.json({'message': 'ok'});
 })
 
-app.use('/', AdminLoginRouter);
-app.use('/', MissionSearch);
-app.use('/admin/user', AdminUsersRouter);
-app.use('/admin/mission', AdminMissionsRouter);
-app.use('/admin/vehicle', AdminVehiclesRouter);
-app.use('/admin/role', AdminRolesRouter);
+app.use('/api/', AdminLoginRouter);
+app.use('/api/', MissionSearch);
+app.use('/api/admin/user', AdminUsersRouter);
+app.use('/api/admin/mission', AdminMissionsRouter);
+app.use('/api/admin/vehicle', AdminVehiclesRouter);
+app.use('/api/admin/role', AdminRolesRouter);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {
