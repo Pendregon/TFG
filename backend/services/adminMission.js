@@ -41,7 +41,7 @@ async function get(id){
 async function getVehicles(id){
     let data = false
     const mission_vehicle = await db.query(
-        `SELECT vehicles.id, vehicles.name, vehicles.image 
+        `SELECT vehicles.id, vehicles.name 
         FROM mission_vehicle 
             JOIN vehicles ON mission_vehicle.vehicle_id=vehicles.id 
         WHERE mission_vehicle.mission_id=?`,
@@ -172,7 +172,7 @@ async function assignVehicle(mission_id, vehicle_id){
         ]
     );
     const mission_vehicle = await db.query(
-        `SELECT vehicles.id, vehicles.name, vehicles.image 
+        `SELECT vehicles.id, vehicles.name 
         FROM mission_vehicle 
             JOIN vehicles ON mission_vehicle.vehicle_id=vehicles.id 
         WHERE mission_vehicle.mission_id=?`,
@@ -263,7 +263,7 @@ async function deassignVehicle(mission_id, vehicle_id){
         ]
     );
     const mission_vehicle = await db.query(
-        `SELECT vehicles.id, vehicles.name, vehicles.image 
+        `SELECT vehicles.id, vehicles.name 
         FROM mission_vehicle 
             JOIN vehicles ON mission_vehicle.vehicle_id=vehicles.id 
         WHERE mission_vehicle.mission_id=?`,
