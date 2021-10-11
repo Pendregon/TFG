@@ -66,7 +66,7 @@
                 ]
             }
 
-            axios.get(`http://15.188.10.32/api/admin/role/${this.$route.params.id}/perms`)
+            axios.get(`https://atirma.iusiani.ulpgc.es:3000/admin/role/${this.$route.params.id}/perms`)
                 .then(response => {
                     this.perms = response.data.data
                 }).catch(e => {
@@ -85,7 +85,7 @@
         },
         methods: {
             addPerm: function(item){
-                axios.put(`http://15.188.10.32/api/admin/role/${this.$route.params.id}/perm/${item.id}`)
+                axios.put(`https://atirma.iusiani.ulpgc.es:3000/admin/role/${this.$route.params.id}/perm/${item.id}`)
                     .then(response => {
                         this.perms = response.data.data
                     }).catch(e => {
@@ -93,7 +93,7 @@
                     });
             },
             deletePerm: function(item){
-                axios.delete(`http://15.188.10.32/api/admin/role/${this.$route.params.id}/perm/${item.id}`)
+                axios.delete(`https://atirma.iusiani.ulpgc.es:3000/admin/role/${this.$route.params.id}/perm/${item.id}`)
                     .then(response => {
                         this.perms = response.data.data
                     }).catch(e => {

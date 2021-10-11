@@ -161,7 +161,7 @@
         props: [],
         methods: {
             checkLogin: function(e){
-                axios.post(`http://15.188.10.32/api/login`, {email: this.email, password: this.password})
+                axios.post(`https://atirma.iusiani.ulpgc.es:3000/login`, {email: this.email, password: this.password})
                     .then(response => {
                         if(response.data.token){
                             localStorage.setItem('token', response.data.token);

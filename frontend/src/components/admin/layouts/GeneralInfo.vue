@@ -79,7 +79,7 @@
                 ]
             }
             
-            axios.get(`http://15.188.10.32/api/admin/mission/${this.$route.params.id}/vehicles`)
+            axios.get(`https://atirma.iusiani.ulpgc.es:3000/admin/mission/${this.$route.params.id}/vehicles`)
                 .then(response => {
                     console.log(response);
                     this.mission_vehicles = response.data.data
@@ -99,7 +99,7 @@
         },
         methods: {
             addMissionVehicle: function(data){
-                axios.put(`http://15.188.10.32/api/admin/mission/${this.$route.params.id}/vehicles/${data.vehicle}`)
+                axios.put(`https://atirma.iusiani.ulpgc.es:3000/admin/mission/${this.$route.params.id}/vehicles/${data.vehicle}`)
                     .then(response => {
                         this.mission_vehicles = response.data.data
                     }).catch(e => {
@@ -107,7 +107,7 @@
                     });
             },
             deleteMissionVehicle: function(){
-                axios.delete(`http://15.188.10.32/api/admin/mission/${this.$route.params.id}/vehicles/${this.delete_vehicle_attempt.id}`)
+                axios.delete(`https://atirma.iusiani.ulpgc.es:3000/admin/mission/${this.$route.params.id}/vehicles/${this.delete_vehicle_attempt.id}`)
                     .then(response => {
                         this.mission_vehicles = response.data.data
                     }).catch(e => {

@@ -39,7 +39,7 @@ export default {
 				}
 			]
 		}
-        axios.get('http://15.188.10.32/api/admin/vehicle/getAll')
+        axios.get('https://atirma.iusiani.ulpgc.es:3000/admin/vehicle/getAll')
             .then(response => {
                 this.vehicles = response.data.data
             }).catch(e => {
@@ -54,7 +54,7 @@ export default {
     props:['user_perms'],
     methods: {
         addVehicle: function(input_vehicle){
-            axios.post(`http://15.188.10.32/api/admin/vehicle`, input_vehicle)
+            axios.post(`https://atirma.iusiani.ulpgc.es:3000/admin/vehicle`, input_vehicle)
                 .then(response => {
                     this.vehicles = response.data.data
                 }).catch(e => {
@@ -62,7 +62,7 @@ export default {
                 });
         },
         editVehicle: function(input_vehicle){
-            axios.put(`http://15.188.10.32/api/admin/vehicle/${input_vehicle.id}`, input_vehicle)
+            axios.put(`https://atirma.iusiani.ulpgc.es:3000/admin/vehicle/${input_vehicle.id}`, input_vehicle)
                 .then(response => {
                     this.vehicles = response.data.data
                 }).catch(e => {
@@ -70,7 +70,7 @@ export default {
                 });
         },
         deleteVehicle: function(input_vehicle){
-            axios.delete(`http://15.188.10.32/api/admin/vehicle/${input_vehicle.id}`)
+            axios.delete(`https://atirma.iusiani.ulpgc.es:3000/admin/vehicle/${input_vehicle.id}`)
                 .then(response => {
                     this.vehicles = response.data.data
                 }).catch(e => {

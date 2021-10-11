@@ -38,7 +38,7 @@ export default {
 				}
 			]
 		}
-        axios.get('http://15.188.10.32/api/admin/user/getAll')
+        axios.get('https://atirma.iusiani.ulpgc.es:3000/admin/user/getAll')
             .then(response => {
                 this.users = response.data.data
             }).catch(e => {
@@ -53,7 +53,7 @@ export default {
     props:['user_perms'],
     methods: {
         addUser: function(input_user){
-            axios.post(`http://15.188.10.32/api/admin/user`, input_user)
+            axios.post(`https://atirma.iusiani.ulpgc.es:3000/admin/user`, input_user)
                 .then(response => {
                     this.users = response.data.data
                 }).catch(e => {
@@ -62,7 +62,7 @@ export default {
         },
         editUser: function(input_user){
 			console.log(input_user)
-            axios.put(`http://15.188.10.32/api/admin/user/${input_user.id}`, input_user)
+            axios.put(`https://atirma.iusiani.ulpgc.es:3000/admin/user/${input_user.id}`, input_user)
                 .then(response => {
                     this.users = response.data.data
                 }).catch(e => {
@@ -71,7 +71,7 @@ export default {
         },
         deleteUser: function(input_user){
 			console.log(input_user)
-            axios.delete(`http://15.188.10.32/api/admin/user/${input_user.id}`)
+            axios.delete(`https://atirma.iusiani.ulpgc.es:3000/admin/user/${input_user.id}`)
                 .then(response => {
                     this.users = response.data.data
                 }).catch(e => {
