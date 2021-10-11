@@ -41,14 +41,6 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS `roles` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) NOT NULL,
-  `display_name` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-
 INSERT INTO `permissions` (`id`, `name`, `type`) VALUES
 	(1, 'show_missions', 'missions'),
 	(2, 'show_vehicles', 'vehicles'),
@@ -70,6 +62,18 @@ INSERT INTO `permissions` (`id`, `name`, `type`) VALUES
 	(18, 'create_user', 'users'),
 	(19, 'edit_user', 'users'),
 	(20, 'delete_user', 'users');
+  
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `display_name` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+INSERT INTO `roles` (`id`, `name`, `display_name`) VALUES
+	(1, 'admin', 'Administrador');
+
   
 CREATE TABLE IF NOT EXISTS `permission_role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -125,9 +129,6 @@ CREATE TABLE IF NOT EXISTS `record_sensor` (
   KEY `record_sensor_record` (`record_id`),
   CONSTRAINT `record_sensor_record` FOREIGN KEY (`record_id`) REFERENCES `records` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
-
-INSERT INTO `roles` (`id`, `name`, `display_name`) VALUES
-	(1, 'admin', 'Administrador');
 
 CREATE TABLE IF NOT EXISTS `sensor_navigation` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
