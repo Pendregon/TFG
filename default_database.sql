@@ -16,7 +16,6 @@ CREATE TABLE IF NOT EXISTS `missions` (
 CREATE TABLE IF NOT EXISTS `vehicles` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
-  `route_color` text NOT NULL,
   `boat_mark_color` text NOT NULL,
   `boat_waypoint_color` text NOT NULL,
   PRIMARY KEY (`id`),
@@ -62,7 +61,7 @@ INSERT INTO `permissions` (`id`, `name`, `type`) VALUES
 	(18, 'create_user', 'users'),
 	(19, 'edit_user', 'users'),
 	(20, 'delete_user', 'users');
-  
+
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
