@@ -456,13 +456,15 @@ export default {
                             type: "password",
                             name: "password",
                             label: "Contraseña",
-                            required: true,
-                            value: this.data.password,
+                            required: false,
+                            value: '',
                             validation: (value) => {
                                 const special_characters = /[ `¿¡!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
                                 const numbers = /[0123456789]+/;
                                 const letters = /[abcdefghijklmnñopqrstuvwxyz]+/;
-                                if(value.length < 6){
+                                if(value == ''){
+                                    return true
+                                }else if(value.length < 6){
                                     return "Este campo tiene como mínimo 6 caracteres."
                                 }else if(value.length > 20){
                                     return "Este campo tiene como máximo 20 caracteres."

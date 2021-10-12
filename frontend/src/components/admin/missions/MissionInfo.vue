@@ -14,7 +14,7 @@
                     {{item.label}}
                 </p>
                 <p class="content">
-                    {{mission[item.target]}}
+                    {{item.target == 'start_date' || item.target == 'end_date'? getFormatedDate(mission[item.target]) : mission[item.target]}}
                 </p>
             </div>
         </div>
@@ -27,6 +27,7 @@
             :validation_target="'name'" 
             :can_add="user_perms.find(e => e.name == 'edit_mission')"
             :can_delete="user_perms.find(e => e.name == 'edit_mission')"
+            :can_add_csv="user_perms.find(e => e.name == 'edit_mission')"
             @add="addMissionVehicle($event)"
             @delete="deleteMissionVehicle($event)"
         />
@@ -115,6 +116,10 @@
                     }).catch(e => {
                         console.log(e);
                     });
+            },
+            getFormatedDate: function(date){
+                const new_date = new Date(date)
+                return `${new_date.getDate()}/${new_date.getMonth()+1}/${new_date.getFullYear()}`
             }
         },
     }

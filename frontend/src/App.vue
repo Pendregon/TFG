@@ -86,6 +86,8 @@ export default {
 		}
 	},
 	beforeMount() {
+		document.title = "SIANI"
+
 		let menuDataProvisional = [
 			{
 				route:'/admin',
@@ -123,7 +125,9 @@ export default {
 				required_perm:'show_roles'
 			},
 		]
+		
 		this.menuData = []
+
 		axios.get(`https://atirma.iusiani.ulpgc.es/api/getPerms`)
 			.then(response => {
 				localStorage.setItem('perms', response.data.perms)

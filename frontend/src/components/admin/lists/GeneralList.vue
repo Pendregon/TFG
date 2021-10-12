@@ -12,7 +12,9 @@
             :item_additional_info="item_additional_info"
             :can_show="can_show"
             :can_edit="can_edit"
+            :can_add_csv="can_add_csv"
             :can_delete="can_delete"
+            @csv="user_to_manage=item;$refs.csv_file.click()"
             @edit="user_to_manage=item;showEditItemModal=true"
             @delete="user_to_manage=item;showDeleteItemModal=true"
         />
@@ -36,6 +38,7 @@
             @formComplete="$emit('delete', user_to_manage)" 
             @close="showDeleteItemModal=false"
         />
+        <input type="file" ref="csv_file" style="display: none">
     </div>
 </template>
 <style lang="stylus" scoped>
@@ -92,6 +95,7 @@ export default {
         'can_add', 
         'can_edit', 
         'can_delete', 
+        'can_add_csv',
         'item_additional_info',
         'item_general_info'
     ],

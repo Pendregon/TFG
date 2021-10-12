@@ -18,6 +18,7 @@
             </p>
         </div>
         <div class="admin-item-tools">
+            <CsvIcon v-if="can_add_csv" class="csv-icon" @click="$emit('csv', item)"/>
             <EditIcon v-if="can_edit" class="edit-icon" @click="$emit('edit', item)"/>
             <DeleteIcon v-if="can_delete" class="delete-icon" @click="$emit('delete', item)"/>
         </div>
@@ -99,7 +100,7 @@
             display flex
             flex-direction row
 
-            .edit-icon, .delete-icon
+            .edit-icon, .delete-icon, .csv-icon
                 display flex
                 align-items center
                 justify-content center
@@ -113,7 +114,7 @@
                     height 30px
                     width 30px
 
-            .edit-icon:hover, .delete-icon:hover
+            .edit-icon:hover, .delete-icon:hover, .csv-icon:hover
                 background main-color
                 color third-color
 
@@ -130,6 +131,7 @@
 <script>
 import EditIcon from 'vue-material-design-icons/Pencil.vue'
 import DeleteIcon from 'vue-material-design-icons/DeleteForeverOutline.vue'
+import CsvIcon from 'vue-material-design-icons/FileDelimited.vue'
 
 export default {
     name: 'GeneralListItem',
@@ -138,13 +140,15 @@ export default {
         'type', 
         'can_show', 
         'can_edit', 
+        'can_add_csv', 
         'can_delete', 
         'item_additional_info', 
         'item_general_info' 
     ],
     components:{
         EditIcon,
-        DeleteIcon
+        DeleteIcon,
+        CsvIcon
     },
     methods: {
         getFormatedDate: function(date){

@@ -8,7 +8,7 @@ const saltRounds = 10;
 async function get(){
     let data = false
     const users = await db.query(
-        `SELECT users.id, users.name, users.email, users.password, users.role_id, roles.display_name as role  
+        `SELECT users.id, users.name, users.email, users.role_id, roles.display_name as role  
         FROM users 
         JOIN roles ON users.role_id=roles.id`
     );
@@ -56,7 +56,7 @@ async function create(user){
         message = 'User created successfully';
     }
     const users = await db.query(
-        `SELECT users.id, users.name, users.email, users.password, users.role_id, roles.display_name as role  
+        `SELECT users.id, users.name, users.email, users.role_id, roles.display_name as role  
         FROM users 
         JOIN roles ON users.role_id=roles.id`
     );
@@ -69,24 +69,40 @@ async function create(user){
 
 async function update(id, user){
     let data = false
-    const result = await db.query(
-        `UPDATE users 
-        SET name=?, email=?, password=?, role_id=?
-        WHERE id=?`, 
-        [
-            user.name,
-            user.email,
-            bcrypt.hashSync(user.password, saltRounds),
-            user.role_id,
-            id
-        ]
-    );
+    let result = false
+    if(user.password == ''){
+        result = await db.query(
+            `UPDATE users 
+            SET name=?, email=?, role_id=?
+            WHERE id=?`, 
+            [
+                user.name,
+                user.email,
+                user.role_id,
+                id
+            ]
+        );
+
+    }else{
+        result = await db.query(
+            `UPDATE users 
+            SET name=?, email=?, password=?, role_id=?
+            WHERE id=?`, 
+            [
+                user.name,
+                user.email,
+                bcrypt.hashSync(user.password, saltRounds),
+                user.role_id,
+                id
+            ]
+        );
+    }
     let message = 'Error in updating user';
     if (result.affectedRows) {
         message = 'User updated successfully';
     }
     const users = await db.query(
-        `SELECT users.id, users.name, users.email, users.password, users.role_id, roles.display_name as role  
+        `SELECT users.id, users.name, users.email, users.role_id, roles.display_name as role  
         FROM users 
         JOIN roles ON users.role_id=roles.id`
     );
@@ -108,7 +124,7 @@ async function remove(id){
         message = 'User deleted successfully';
     }
     const users = await db.query(
-        `SELECT users.id, users.name, users.email, users.password, users.role_id, roles.display_name as role  
+        `SELECT users.id, users.name, users.email, users.role_id, roles.display_name as role  
         FROM users 
         JOIN roles ON users.role_id=roles.id`
     );

@@ -14,6 +14,7 @@
                 @focus="is_focused=true" 
                 @blur="is_focused=false" 
                 type="password"
+                placeholder="******"
             >
         </div>
         <p v-if="validation && validation != true" class="validation-error">

@@ -48,10 +48,6 @@
             this.dashboard_items = [
                 {
                     label: 'Nombre',
-                    target: 'name'
-                },
-                {
-                    label: 'Nombre de muestra',
                     target: 'display_name'
                 },
             ]
