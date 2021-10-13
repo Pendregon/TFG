@@ -2,7 +2,7 @@ const mysql = require('mysql2/promise');
 const config = require('../config');
 let connection = null
 async function query(sql, params) {
-    if(!connection)
+    if(!connection || connection.state === 'closed' || connection.state === 'disconnected')
         connection = await mysql.createConnection(config.db);
     const [results, ] = await connection.execute(sql, params);
 
