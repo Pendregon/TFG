@@ -14,6 +14,7 @@
                 @focus="is_focused=true" 
                 @blur="is_focused=false" 
                 type="datetime-local"
+                step="1"
             >
         </div>
         <p v-if="validation && validation != true" class="validation-error">
