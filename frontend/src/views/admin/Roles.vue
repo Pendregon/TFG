@@ -59,24 +59,48 @@ export default {
             axios.post(`https://atirma.iusiani.ulpgc.es/api/admin/role`, input_role)
                 .then(response => {
                     this.roles = response.data.data
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Rol añadido'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error añadiendo rol`
+                    })
                 });
         },
         editRole: function(input_role){
             axios.put(`https://atirma.iusiani.ulpgc.es/api/admin/role/${input_role.id}`, input_role)
                 .then(response => {
                     this.roles = response.data.data
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Rol editado'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error editando rol`
+                    })
                 });
         },
         deleteRole: function(input_role){
             axios.delete(`https://atirma.iusiani.ulpgc.es/api/admin/role/${input_role.id}`)
                 .then(response => {
                     this.roles = response.data.data
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Rol borrado'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error borrando rol`
+                    })
                 });
         }
     },

@@ -57,24 +57,48 @@ export default {
             axios.post(`https://atirma.iusiani.ulpgc.es/api/admin/vehicle`, input_vehicle)
                 .then(response => {
                     this.vehicles = response.data.data
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Vehículo añadido'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error añadiendo vehículo`
+                    })
                 });
         },
         editVehicle: function(input_vehicle){
             axios.put(`https://atirma.iusiani.ulpgc.es/api/admin/vehicle/${input_vehicle.id}`, input_vehicle)
                 .then(response => {
                     this.vehicles = response.data.data
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Vehículo editado'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error editando vehículo`
+                    })
                 });
         },
         deleteVehicle: function(input_vehicle){
             axios.delete(`https://atirma.iusiani.ulpgc.es/api/admin/vehicle/${input_vehicle.id}`)
                 .then(response => {
                     this.vehicles = response.data.data
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Vehículo borrado'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error borrando vehículo`
+                    })
                 });
         }
     },

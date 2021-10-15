@@ -173,6 +173,10 @@
                         localStorage.setItem('token', null);
                         localStorage.setItem('perms', null);
                         console.log(e.response);
+                        this.$store.commit('addNotification', {
+                            type: 'error',
+                            title: `Datos inválidos`
+                        })
                     });
 
                 e.preventDefault()

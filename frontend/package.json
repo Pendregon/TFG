@@ -18,7 +18,8 @@
     "vue-material-design-icons": "^4.12.1",
     "vue-router": "^3.5.2",
     "vue2-leaflet": "^2.7.0",
-    "vue2-leaflet-rotatedmarker": "^1.0.9"
+    "vue2-leaflet-rotatedmarker": "^1.0.9",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.13",

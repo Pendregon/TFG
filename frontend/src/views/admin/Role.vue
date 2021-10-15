@@ -50,16 +50,32 @@ export default {
                 .then(() => {
                     this.role.name = input_role.name
                     this.role.display_name = input_role.display_name
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Rol editado'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error editando rol`
+                    })
                 });
         },
         deleteRole: function(input_role){
             axios.delete(`https://atirma.iusiani.ulpgc.es/api/admin/role/${input_role.id}`)
                 .then(() => {
                     this.$router.push({name:'AdminRoles'})
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Rol borrado'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error borrando rol`
+                    })
                 });
         }
     },

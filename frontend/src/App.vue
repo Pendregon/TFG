@@ -7,6 +7,9 @@
 			v-if="is_admin_page()" 
 			:menuData="menuData" 
 		/>
+		<AdminNotifications
+			v-if="$store.state.admin_notifications.length > 0" 
+		/>
 		<router-view 
 			:user_perms="user_perms"
 			:is_user_logged="is_user_logged"
@@ -64,6 +67,7 @@
 <script>
 import Menu from '@/components/admin/menu/Menu.vue'
 import BottomMenuMobile from '@/components/admin/menu/BottomMenuMobile.vue'
+import AdminNotifications from '@/components/admin/notifications/list.vue'
 import axios from 'axios'
 
 
@@ -71,7 +75,8 @@ export default {
 	name : 'app',
 	components: {
 		Menu,
-		BottomMenuMobile
+		BottomMenuMobile,
+		AdminNotifications
 	},
 	methods: {
 		is_admin_page: function(){

@@ -56,8 +56,16 @@ export default {
             axios.post(`https://atirma.iusiani.ulpgc.es/api/admin/user`, input_user)
                 .then(response => {
                     this.users = response.data.data
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Usuario añadido'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error añadiendo usuario`
+                    })
                 });
         },
         editUser: function(input_user){
@@ -65,8 +73,16 @@ export default {
             axios.put(`https://atirma.iusiani.ulpgc.es/api/admin/user/${input_user.id}`, input_user)
                 .then(response => {
                     this.users = response.data.data
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Usuario editado'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error editando usuario`
+                    })
                 });
         },
         deleteUser: function(input_user){
@@ -74,8 +90,16 @@ export default {
             axios.delete(`https://atirma.iusiani.ulpgc.es/api/admin/user/${input_user.id}`)
                 .then(response => {
                     this.users = response.data.data
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Usuario borrado'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error borrando usuario`
+                    })
                 });
         }
     },

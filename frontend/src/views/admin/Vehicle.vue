@@ -50,16 +50,32 @@ export default {
                 .then(() => {
                     this.vehicle.name = input_vehicle.name
                     this.vehicle.boat_mark_color = input_vehicle.boat_mark_color
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Vehículo editado'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error editando vehículo`
+                    })
                 });
         },
         deleteVehicle: function(){
             axios.delete(`https://atirma.iusiani.ulpgc.es/api/admin/vehicle/${this.$route.params.id}`)
                 .then(() => {
                     this.$router.push({name:'AdminVehicles'})
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Vehículo borrado'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error borrando vehículo`
+                    })
                 });
         }
     },

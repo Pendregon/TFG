@@ -53,16 +53,32 @@ export default {
                     this.mission.location = input_mission.location
                     this.mission.start_date = input_mission.start_date
                     this.mission.end_date = input_mission.end_date
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Misión editada'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error editando misión`
+                    })
                 });
         },
         deleteMission: function(){
             axios.delete(`https://atirma.iusiani.ulpgc.es/api/admin/mission/${this.$route.params.id}`)
                 .then(() => {
                     this.$router.push({name:'AdminMissions'})
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Misión borrada'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error borrando misión`
+                    })
                 });
         }
     },

@@ -63,24 +63,48 @@ export default {
             axios.post(`https://atirma.iusiani.ulpgc.es/api/admin/mission`, input_mission)
                 .then(response => {
                     this.missions = response.data.data
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Misión añadida'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error añadiendo misión`
+                    })
                 });
         },
         editMission: function(input_mission){
             axios.put(`https://atirma.iusiani.ulpgc.es/api/admin/mission/${input_mission.id}`, input_mission)
                 .then(response => {
                     this.missions = response.data.data
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Misión editada'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error editando misión`
+                    })
                 });
         },
         deleteMission: function(input_mission){
             axios.delete(`https://atirma.iusiani.ulpgc.es/api/admin/mission/${input_mission.id}`)
                 .then(response => {
                     this.missions = response.data.data
+                    this.$store.commit('addNotification', {
+                        type: 'success',
+                        title: 'Misión borrada'
+                    })
                 }).catch(e => {
                     console.log(e);
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: `Error borrando misión`
+                    })
                 });
         }
     },
