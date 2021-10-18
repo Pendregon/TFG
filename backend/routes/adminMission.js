@@ -89,4 +89,13 @@ router.delete('/:mission_id/vehicles/:vehicle_id', authentication, async functio
     }
 });
 
+router.post('/uploadCSV', async function(req, res, next) {
+    try {
+        res.json(await adminMission.uploadCSV(req.body));
+    } catch (err) {
+        console.error(`Error while deleting programming language`, err.message);
+        next(err);
+    }
+});
+
 module.exports = router;

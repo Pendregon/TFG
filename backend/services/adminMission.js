@@ -278,6 +278,68 @@ async function deassignVehicle(mission_id, vehicle_id){
     }
 }
 
+async function uploadCSV(data){
+    await asyncForEach(data.file_data, async (e) => {
+        if(e.datetime && e.datetime != ''){
+            let sensor_nav = await db.query(
+                `INSERT INTO sensor_navigation 
+                (boat_time, reset_number, channel, raw_data, latitude, longitude, speed, heading, pitch, roll, true_wind_angle, true_wind_speed, active_wp, active_wp_latitude, active_wp_longitude, wasp_latitude, wasp_longitude) 
+                VALUES 
+                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
+                [
+                    e.datetime, // boat_time
+                    e.reset_number, // reset_number
+                    null, // channel
+                    JSON.stringify(e), // raw_data
+                    e.boat_latitude, // latitude
+                    e.boat_longitude, // longitude
+                    e.boat_speed, // speed
+                    e.heading, // heading
+                    e.pitch, // pitch
+                    e.roll, // roll
+                    e.trueWindAngleDeg, // true_wind_angle
+                    e.trueWindSpeedKnots, // true_wind_speed
+                    e.activeWP, // active_wp
+                    e.activeWP_latitude, // active_wp_latitude
+                    e.activeWP_longitude, // active_wp_longitude
+                    e.wasp_latitude, // wasp_latitude
+                    e.wasp_longitude, // wasp_longitude
+                ]
+            )
+            let record = await db.query(
+                `INSERT INTO records 
+                (vehicle_id, mission_id, timestamp) 
+                VALUES 
+                (?, ?, ?)`, 
+                [
+                    data.vehicle_id, // boat_time
+                    data.mission_id, // reset_number
+                    e.datetime, // channel
+                ]
+            )
+            await db.query(
+                `INSERT INTO record_sensor 
+                (record_id, sensor_id, sensor_type) 
+                VALUES 
+                (?, ?, ?)`, 
+                [
+                    record.insertId, 
+                    sensor_nav.insertId, 
+                    "sensor_navigation"
+                ]
+            )
+        }
+    })
+    return {'message': 'ok'}
+}
+
+
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array);
+    }
+}
+
 module.exports = {
     get,
     getVehicles,
@@ -286,5 +348,6 @@ module.exports = {
     update,
     assignVehicle,
     remove,
-    deassignVehicle
+    deassignVehicle,
+    uploadCSV
 }

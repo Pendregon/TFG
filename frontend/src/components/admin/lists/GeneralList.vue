@@ -38,7 +38,7 @@
             @formComplete="$emit('delete', user_to_manage)" 
             @close="showDeleteItemModal=false"
         />
-        <input type="file" ref="csv_file" style="display: none">
+        <input type="file" ref="csv_file" style="display: none" @change="uploadCSV">
     </div>
 </template>
 <style lang="stylus" scoped>
@@ -109,6 +109,15 @@ export default {
             showEditItemModal: false,
             showDeleteItemModal: false,
             user_to_manage: false
+        }
+    },
+    methods: {
+        uploadCSV: function(event){
+            console.log(this.user_to_manage)
+            this.$emit('uploadCSV', {
+                vehicle_id: this.user_to_manage.id,
+                file: event.target.files[0]
+            })
         }
     },
 }

@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+app.use(express.json({limit: '50mb'}));
 const cors = require('cors');
 const port = process.env.PORT || 3000;
 const AdminUsersRouter = require('./routes/adminUsers');

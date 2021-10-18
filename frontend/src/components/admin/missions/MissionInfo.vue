@@ -28,6 +28,7 @@
             :can_add="user_perms.find(e => e.name == 'edit_mission')"
             :can_delete="user_perms.find(e => e.name == 'edit_mission')"
             :can_add_csv="user_perms.find(e => e.name == 'edit_mission')"
+            @uploadCSV="uploadCSV($event)"
             @add="addMissionVehicle($event)"
             @delete="deleteMissionVehicle($event)"
         />
@@ -84,7 +85,6 @@
             
             axios.get(`https://atirma.iusiani.ulpgc.es/api/admin/mission/${this.$route.params.id}/vehicles`)
                 .then(response => {
-                    console.log(response);
                     this.mission_vehicles = response.data.data
                 }).catch(e => {
                     console.log(e);
@@ -116,6 +116,70 @@
                     }).catch(e => {
                         console.log(e);
                     });
+            },
+            uploadCSV: function(data){
+                data.mission_id = this.mission.id
+                if(data.file.name.match(/\.csv$/i))
+                    this.sendCSV(data)               
+                else
+                    this.$store.commit('addNotification', {
+                        type: 'error',
+                        title: 'Extensión incorrecta',
+                        description: 'El archivo debe ser un .csv'
+                    })
+            },
+            sendCSV: function(data){
+                const reader = new FileReader();
+                reader.readAsText(data.file);
+                reader.onload = () => {
+                    axios.post(`http://localhost:3000/api/admin/mission/uploadCSV`, {
+                        mission_id : data.mission_id,
+                        vehicle_id : data.vehicle_id,
+                        file_data: [...new Map(this.csvToJson(reader.result).map(item =>[item.datetime, item])).values()]
+                    })
+                        .then(() => {
+                            this.$store.commit('addNotification', {
+                                type: 'success',
+                                title: 'CSV añadido'
+                            })
+                        }).catch(e => {
+                            console.log(e);
+                            this.$store.commit('addNotification', {
+                                type: 'error',
+                                title: 'Error al leer el archivo'
+                            })
+                        });
+                };
+            },
+            csvToJson: function(csv_data){
+                let lines = [];
+                const linesArray = csv_data.split('\n');
+                // for trimming and deleting extra space 
+                linesArray.forEach((e) => {
+                    const row = e.replace(/[\s]+[,]+|[,]+[\s]+/g, ',').trim();
+                    lines.push(row);
+                });
+                // for removing empty record
+                lines.splice(lines.length - 1, 1);
+                const result = [];
+                const headers = lines[0].split(",");
+
+                for (let i = 1; i < lines.length; i++) {
+
+                    const obj = {};
+                    const currentline = lines[i].split(",");
+
+                    for (let j = 0; j < headers.length; j++) {
+                        if(headers[j].replace(/"/g, '') == 'datetime')
+                            obj[headers[j].replace(/"/g, '')] = currentline[j].replace(/"/g, '').replace(/\.[0-9]*$/g, '')
+                        else
+                            obj[headers[j].replace(/"/g, '')] = currentline[j].replace(/"/g, '')
+                    }
+                    result.push(obj)
+                }
+                //return result; //JavaScript object
+                // return JSON.stringify(result); //JSON
+                return result;
             },
             getFormatedDate: function(date){
                 const new_date = new Date(date)
