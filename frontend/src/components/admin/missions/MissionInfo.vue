@@ -119,9 +119,15 @@
             },
             uploadCSV: function(data){
                 data.mission_id = this.mission.id
-                if(data.file.name.match(/\.csv$/i))
+                if(data.file.name.match(/\.csv$/i)){
                     this.sendCSV(data)               
-                else
+
+                    this.$store.commit('addNotification', {
+                        type: 'warning',
+                        title: 'Fichero muy pesado',
+                        description: 'El fichero tardará un tiempo en añadirse'
+                    })
+                }else
                     this.$store.commit('addNotification', {
                         type: 'error',
                         title: 'Extensión incorrecta',
