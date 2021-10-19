@@ -138,7 +138,7 @@
                 const reader = new FileReader();
                 reader.readAsText(data.file);
                 reader.onload = () => {
-                    axios.post(`http://localhost:3000/api/admin/mission/uploadCSV`, {
+                    axios.post(`https://atirma.iusiani.ulpgc.es/api/admin/mission/uploadCSV`, {
                         mission_id : data.mission_id,
                         vehicle_id : data.vehicle_id,
                         file_data: [...new Map(this.csvToJson(reader.result).map(item =>[item.datetime, item])).values()]
