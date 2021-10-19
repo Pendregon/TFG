@@ -41,6 +41,9 @@
             align-self center
             display flex
 
+            @media (max-width: 400px)
+                display none
+
             p
                 margin 0
                 margin-right 15px
