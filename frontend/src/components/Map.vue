@@ -19,7 +19,7 @@
             > 
                 <div :key="vehicle.id" >
                     <v-rotated-marker 
-                        v-if="vehicle.records.length > 0"
+                        v-if="vehicle.records && vehicle.records.length > 0"
                         :lat-lng="[vehicle.records[vehicle.current_playing_record].latitude, vehicle.records[vehicle.current_playing_record].longitude]" 
                         @click="$emit('showInfo', vehicle)" 
                     >
@@ -50,7 +50,7 @@
                                     :transform="`translate(0 ${index * 2 - 2 + Math.floor(vehicle.records[vehicle.current_playing_record].true_wind_speed / 50) * 4.3})`"
                                 />
                                 <line 
-                                    v-for="index in Math.floor(vehicle.records[vehicle.current_playing_record].true_wind_speed % 50 % 10 / 5)"
+                                    v-for="index in Math.ceil(vehicle.records[vehicle.current_playing_record].true_wind_speed % 50 % 10 / 5)"
                                     :key="index"
                                     class="wind_svg_velocity_short_line" 
                                     x1="0.26" 
@@ -77,7 +77,7 @@
                     v-for="vehicle in mission.vehicles"
                 > 
                     <l-polyline 
-                        v-if="vehicle.records.length > 0"
+                        v-if="vehicle.records && vehicle.records.length > 0"
                         :key="`1-${mission.id}-${vehicle.id}`" 
                         :lat-lngs="vehicle.latLngs" 
                         :color="vehicle.boat_mark_color == '' ? '#002885' : vehicle.boat_mark_color"
@@ -93,7 +93,7 @@
                     v-for="vehicle in mission.vehicles"
                 >  
                     <div
-                        v-if="vehicle.records.length > 0"
+                        v-if="vehicle.records && vehicle.records.length > 0"
                         :key="`5-${mission.id}-${vehicle.id}`" 
                     >
                         <l-marker 
@@ -123,7 +123,7 @@
                     v-for="vehicle in mission.vehicles" 
                 >  
                     <div
-                        v-if="vehicle.records.length > 0"
+                        v-if="vehicle.records && vehicle.records.length > 0"
                         :key="`2-${mission.id}-${vehicle.id}`" 
                     >
                         <l-marker 

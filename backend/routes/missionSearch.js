@@ -46,4 +46,13 @@ router.get('/getMissionsVehicleRecords/:mision_id/:vehicle_id', async function(r
         next(err);
     }
 });
+
+router.get('/getRecordsFromMission/:mision_id', async function(req, res, next) {
+    try {
+        res.json(await missionSearch.getRecordsFromMission(req.params.mision_id));
+    } catch (err) {
+        console.error(`Error while searching `, err.message);
+        next(err);
+    }
+});
 module.exports = router;

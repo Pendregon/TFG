@@ -31,7 +31,7 @@ export default {
         RoleInfo
     },
     beforeMount (){
-        axios.get(`https://atirma.iusiani.ulpgc.es/api/admin/role/${this.$route.params.id}`)
+        axios.get(`${this.$store.state.api_url}/admin/role/${this.$route.params.id}`)
             .then(response => {
                 this.role = response.data.data
             }).catch(e => {
@@ -46,7 +46,7 @@ export default {
     props:['user_perms'],
     methods: {
         editRole: function(input_role){
-            axios.put(`https://atirma.iusiani.ulpgc.es/api/admin/role/${this.$route.params.id}`, input_role)
+            axios.put(`${this.$store.state.api_url}/admin/role/${this.$route.params.id}`, input_role)
                 .then(() => {
                     this.role.name = input_role.name
                     this.role.display_name = input_role.display_name
@@ -63,7 +63,7 @@ export default {
                 });
         },
         deleteRole: function(input_role){
-            axios.delete(`https://atirma.iusiani.ulpgc.es/api/admin/role/${input_role.id}`)
+            axios.delete(`${this.$store.state.api_url}/admin/role/${input_role.id}`)
                 .then(() => {
                     this.$router.push({name:'AdminRoles'})
                     this.$store.commit('addNotification', {

@@ -87,7 +87,7 @@
 				this.show_buttons = false
 				this.list_type = 'vehicles'
 				if(this.vehicles.length == 0){
-					axios.get(`https://atirma.iusiani.ulpgc.es/api/getAllVehicles`)
+					axios.get(`${this.$store.state.api_url}/getAllVehicles`)
 						.then(response => {
 							this.vehicles = response.data.vehicles
 							this.list = response.data.vehicles
@@ -105,7 +105,7 @@
 
 					
 				if(this.missions.length == 0){
-					axios.get(`https://atirma.iusiani.ulpgc.es/api/getAllMissions`)
+					axios.get(`${this.$store.state.api_url}/getAllMissions`)
 						.then(response => {
 							this.missions = response.data.vehicles
 							this.list = response.data.missions
@@ -119,7 +119,7 @@
 			searchMissionByVehicle: function(vehicle){
 				this.show_recomended_list = false
 				this.list_type = 'vehicle_mission'
-				axios.get(`https://atirma.iusiani.ulpgc.es/api/getMissionsByVehicle/${vehicle.id}`)
+				axios.get(`${this.$store.state.api_url}/getMissionsByVehicle/${vehicle.id}`)
 					.then(response => {
 						this.list = response.data.missions
 						this.show_recomended_list = true

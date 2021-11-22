@@ -198,7 +198,7 @@
 					clearTimeout(this.keyup_timeout)
 				}
 				this.keyup_timeout = setTimeout(() => {
-					axios.post(`https://atirma.iusiani.ulpgc.es/api/searchForMission`,{
+					axios.post(`${this.$store.state.api_url}/searchForMission`,{
 						search: this.search_text
 					})
 						.then(response => {

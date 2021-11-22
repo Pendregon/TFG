@@ -39,7 +39,7 @@ export default {
 				}
 			]
 		}
-        axios.get('https://atirma.iusiani.ulpgc.es/api/admin/vehicle/getAll')
+        axios.get(`${this.$store.state.api_url}/admin/vehicle/getAll`)
             .then(response => {
                 this.vehicles = response.data.data
             }).catch(e => {
@@ -54,7 +54,7 @@ export default {
     props:['user_perms'],
     methods: {
         addVehicle: function(input_vehicle){
-            axios.post(`https://atirma.iusiani.ulpgc.es/api/admin/vehicle`, input_vehicle)
+            axios.post(`${this.$store.state.api_url}/admin/vehicle`, input_vehicle)
                 .then(response => {
                     this.vehicles = response.data.data
                     this.$store.commit('addNotification', {
@@ -70,7 +70,7 @@ export default {
                 });
         },
         editVehicle: function(input_vehicle){
-            axios.put(`https://atirma.iusiani.ulpgc.es/api/admin/vehicle/${input_vehicle.id}`, input_vehicle)
+            axios.put(`${this.$store.state.api_url}/admin/vehicle/${input_vehicle.id}`, input_vehicle)
                 .then(response => {
                     this.vehicles = response.data.data
                     this.$store.commit('addNotification', {
@@ -86,7 +86,7 @@ export default {
                 });
         },
         deleteVehicle: function(input_vehicle){
-            axios.delete(`https://atirma.iusiani.ulpgc.es/api/admin/vehicle/${input_vehicle.id}`)
+            axios.delete(`${this.$store.state.api_url}/admin/vehicle/${input_vehicle.id}`)
                 .then(response => {
                     this.vehicles = response.data.data
                     this.$store.commit('addNotification', {

@@ -83,7 +83,7 @@
                 ]
             }
             
-            axios.get(`https://atirma.iusiani.ulpgc.es/api/admin/mission/${this.$route.params.id}/vehicles`)
+            axios.get(`${this.$store.state.api_url}/admin/mission/${this.$route.params.id}/vehicles`)
                 .then(response => {
                     this.mission_vehicles = response.data.data
                 }).catch(e => {
@@ -102,7 +102,7 @@
         },
         methods: {
             addMissionVehicle: function(data){
-                axios.put(`https://atirma.iusiani.ulpgc.es/api/admin/mission/${this.$route.params.id}/vehicles/${data.vehicle}`)
+                axios.put(`${this.$store.state.api_url}/admin/mission/${this.$route.params.id}/vehicles/${data.vehicle}`)
                     .then(response => {
                         this.mission_vehicles = response.data.data
                     }).catch(e => {
@@ -110,7 +110,7 @@
                     });
             },
             deleteMissionVehicle: function(item){
-                axios.delete(`https://atirma.iusiani.ulpgc.es/api/admin/mission/${this.$route.params.id}/vehicles/${item.id}`)
+                axios.delete(`${this.$store.state.api_url}/admin/mission/${this.$route.params.id}/vehicles/${item.id}`)
                     .then(response => {
                         this.mission_vehicles = response.data.data
                     }).catch(e => {
@@ -138,7 +138,7 @@
                 const reader = new FileReader();
                 reader.readAsText(data.file);
                 reader.onload = () => {
-                    axios.post(`https://atirma.iusiani.ulpgc.es/api/admin/mission/uploadCSV`, {
+                    axios.post(`${this.$store.state.api_url}/admin/mission/uploadCSV`, {
                         mission_id : data.mission_id,
                         vehicle_id : data.vehicle_id,
                         file_data: [...new Map(this.csvToJson(reader.result).map(item =>[item.datetime, item])).values()]

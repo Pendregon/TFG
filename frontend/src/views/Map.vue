@@ -147,7 +147,6 @@
 				show_next_waypoint: false,
 				show_waypoints: false,
 				show_wind: false,
-				recording_interval: 1000,
 				delay: 20000,
 				show_login: false,
 				show_recomend_search: false,
@@ -182,8 +181,8 @@
 			// }, 3000)
 			setInterval(() => {
 				this.missions.forEach(mission => {
-					if(mission.current_playing && mission.current_playing_date < new Date(mission.end_date).getTime() && parseInt(mission.current_playing_date) + this.recording_interval < new Date().getTime() - this.delay){
-						mission.current_playing_date = parseInt(mission.current_playing_date) + this.recording_interval
+					if(mission.current_playing && mission.current_playing_date < new Date(mission.end_date).getTime() && parseInt(mission.current_playing_date) + mission.recording_interval < new Date().getTime() - this.delay){
+						mission.current_playing_date = parseInt(mission.current_playing_date) + mission.recording_interval
 						mission.vehicles.forEach(vehicle => {
 							if(vehicle.current_playing_record < vehicle.records.length){
 								while(vehicle.records[vehicle.current_playing_record + 1] && new Date(vehicle.records[vehicle.current_playing_record + 1].timestamp).getTime() <= mission.current_playing_date){
@@ -200,10 +199,9 @@
 				this.missions.forEach(mission => {
 					if(mission.current_playing && new Date(mission.start_date).getTime() <= now.getTime() && now.getTime() < new Date(mission.end_date).getTime()){
 						mission.vehicles.forEach(vehicle => {
-							axios.get(`https://atirma.iusiani.ulpgc.es/api/getMissionsVehicleRecords/${mission.id}/${vehicle.id}`)
+							axios.get(`${this.$store.state.api_url}/getMissionsVehicleRecords/${mission.id}/${vehicle.id}`)
 								.then(response => {
 									mission.records = response.data.data
-									console.log(mission.records)
 								}).catch(e => {
 									console.log(e);
 								});
@@ -216,22 +214,68 @@
 			showBoatInfo : function (boat){
 				this.vehicle_info = boat
 			},
+			// addMission : function (new_mission) {
+			// 	new_mission.current_playing_date = new Date(new_mission.start_date).getTime()
+			// 	new_mission.current_playing = true
+			// 	new_mission.vehicles.forEach(vehicle => {
+			// 		vehicle.current_playing_record = 0
+			// 		if(vehicle.records.length > 0){
+			// 			if(!vehicle.latLngs) vehicle.latLngs=[[vehicle.records[vehicle.current_playing_record].latitude, vehicle.records[vehicle.current_playing_record].longitude]]
+			// 			if (vehicle.waypoints){
+			// 				vehicle.waypoints_latLngs = []
+			// 				vehicle.waypoints.forEach(waypoint => {
+			// 					vehicle.waypoints_latLngs.push([waypoint.latitude, waypoint.longitude])
+			// 				})
+			// 			}
+			// 		}
+			// 	})
+            //     this.missions.push(new_mission)
+            // },
 			addMission : function (new_mission) {
 				new_mission.current_playing_date = new Date(new_mission.start_date).getTime()
-				new_mission.current_playing = true
-				new_mission.vehicles.forEach(vehicle => {
-					vehicle.current_playing_record = 0
-					if(vehicle.records.length > 0){
-						if(!vehicle.latLngs) vehicle.latLngs=[[vehicle.records[vehicle.current_playing_record].latitude, vehicle.records[vehicle.current_playing_record].longitude]]
-						if (vehicle.waypoints){
-							vehicle.waypoints_latLngs = []
-							vehicle.waypoints.forEach(waypoint => {
-								vehicle.waypoints_latLngs.push([waypoint.latitude, waypoint.longitude])
-							})
-						}
-					}
-				})
+				new_mission.current_playing = false
+				new_mission.is_loading = true
+				new_mission.recording_interval = 1000
                 this.missions.push(new_mission)
+
+				axios.get(`${this.$store.state.api_url}/getRecordsFromMission/${new_mission.id}`)
+					.then(response => {
+						console.log(response)
+						let founded = this.missions.findIndex(e => e.id == new_mission.id)
+						if(founded > -1){
+							this.missions[founded].vehicles = response.data.vehicles
+							this.missions[founded].vehicles.forEach(vehicle => {
+								vehicle.current_playing_record = 0
+								if(vehicle.records.length > 0){
+									if(!vehicle.latLngs) vehicle.latLngs=[[vehicle.records[vehicle.current_playing_record].latitude, vehicle.records[vehicle.current_playing_record].longitude]]
+									if (vehicle.waypoints){
+										vehicle.waypoints_latLngs = []
+										vehicle.waypoints.forEach(waypoint => {
+											vehicle.waypoints_latLngs.push([waypoint.latitude, waypoint.longitude])
+										})
+									}
+								}
+							})
+							this.missions[founded].is_loading = false
+							this.missions[founded].current_playing = true
+						}
+						//buscar id en this.missions y sustituir la variable vehicles por la nueva y hacer todo lo de abajo
+
+					}).catch(e => {
+						console.log(e);
+					});
+				// new_mission.vehicles.forEach(vehicle => {
+				// 	vehicle.current_playing_record = 0
+				// 	if(vehicle.records.length > 0){
+				// 		if(!vehicle.latLngs) vehicle.latLngs=[[vehicle.records[vehicle.current_playing_record].latitude, vehicle.records[vehicle.current_playing_record].longitude]]
+				// 		if (vehicle.waypoints){
+				// 			vehicle.waypoints_latLngs = []
+				// 			vehicle.waypoints.forEach(waypoint => {
+				// 				vehicle.waypoints_latLngs.push([waypoint.latitude, waypoint.longitude])
+				// 			})
+				// 		}
+				// 	}
+				// })
             },
 			deleteMission : function (mission) {
 				this.missions.splice(this.missions.indexOf(mission), 1)

@@ -31,7 +31,7 @@ export default {
         VehicleInfo
     },
     beforeMount (){
-        axios.get(`https://atirma.iusiani.ulpgc.es/api/admin/vehicle/${this.$route.params.id}`)
+        axios.get(`${this.$store.state.api_url}/admin/vehicle/${this.$route.params.id}`)
         .then(response => {
             this.vehicle = response.data.data
         }).catch(e => {
@@ -46,7 +46,7 @@ export default {
     props:['user_perms'],
     methods: {
         editVehicle: function(input_vehicle){
-            axios.put(`https://atirma.iusiani.ulpgc.es/api/admin/vehicle/${this.$route.params.id}`, input_vehicle)
+            axios.put(`${this.$store.state.api_url}/admin/vehicle/${this.$route.params.id}`, input_vehicle)
                 .then(() => {
                     this.vehicle.name = input_vehicle.name
                     this.vehicle.boat_mark_color = input_vehicle.boat_mark_color
@@ -63,7 +63,7 @@ export default {
                 });
         },
         deleteVehicle: function(){
-            axios.delete(`https://atirma.iusiani.ulpgc.es/api/admin/vehicle/${this.$route.params.id}`)
+            axios.delete(`${this.$store.state.api_url}/admin/vehicle/${this.$route.params.id}`)
                 .then(() => {
                     this.$router.push({name:'AdminVehicles'})
                     this.$store.commit('addNotification', {

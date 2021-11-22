@@ -38,7 +38,7 @@ export default {
 				}
 			]
 		}
-        axios.get('https://atirma.iusiani.ulpgc.es/api/admin/user/getAll')
+        axios.get(`${this.$store.state.api_url}/admin/user/getAll`)
             .then(response => {
                 this.users = response.data.data
             }).catch(e => {
@@ -53,7 +53,7 @@ export default {
     props:['user_perms'],
     methods: {
         addUser: function(input_user){
-            axios.post(`https://atirma.iusiani.ulpgc.es/api/admin/user`, input_user)
+            axios.post(`${this.$store.state.api_url}/admin/user`, input_user)
                 .then(response => {
                     this.users = response.data.data
                     this.$store.commit('addNotification', {
@@ -70,7 +70,7 @@ export default {
         },
         editUser: function(input_user){
 			console.log(input_user)
-            axios.put(`https://atirma.iusiani.ulpgc.es/api/admin/user/${input_user.id}`, input_user)
+            axios.put(`${this.$store.state.api_url}/admin/user/${input_user.id}`, input_user)
                 .then(response => {
                     this.users = response.data.data
                     this.$store.commit('addNotification', {
@@ -87,7 +87,7 @@ export default {
         },
         deleteUser: function(input_user){
 			console.log(input_user)
-            axios.delete(`https://atirma.iusiani.ulpgc.es/api/admin/user/${input_user.id}`)
+            axios.delete(`${this.$store.state.api_url}/admin/user/${input_user.id}`)
                 .then(response => {
                     this.users = response.data.data
                     this.$store.commit('addNotification', {

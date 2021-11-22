@@ -133,7 +133,7 @@ export default {
 		
 		this.menuData = []
 
-		axios.get(`https://atirma.iusiani.ulpgc.es/api/getPerms`)
+		axios.get(`${this.$store.state.api_url}/getPerms`)
 			.then(response => {
 				localStorage.setItem('perms', response.data.perms)
 				let perms = JSON.parse(response.data.perms)

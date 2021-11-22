@@ -1,5 +1,6 @@
 <template>
-	<div class="mission-container">
+	<div :class="['mission-container', mission.is_loading ? 'loading':'']">
+		<div v-if="mission.is_loading" class="loader">Cargando</div>
 		<div class="tag">
 			<div v-if="new Date(mission.start_date).getTime() <= new Date().getTime() && new Date().getTime() < new Date(mission.end_date).getTime()" class="live">
 				<svg viewBox="0 0 24 24">
@@ -45,6 +46,24 @@
 		-webkit-box-shadow 0px 0px 11px 0px rgba(0,0,0,0.15)
 		-moz-box-shadow 0px 0px 11px 0px rgba(0,0,0,0.15)
 		box-shadow 0px 0px 11px 0px rgba(0,0,0,0.15)
+		overflow hidden
+		position relative
+		&.loading
+			.tag, .tools
+				filter blur(3px)
+		.loader
+			position absolute
+			background-color rgba(0,0,0, .05)
+			top 0
+			left 0 
+			width 100%
+			height 100%
+			z-index 200
+			display flex
+			justify-content center
+			align-items center
+			font-size .9rem
+			font-weight bold
 
 		.tag
 			display flex 

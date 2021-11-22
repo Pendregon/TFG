@@ -20,41 +20,41 @@ async function search(text){
                 mission.id
             ]
         );
-        await asyncForEach(mission.vehicles, async (vehicle) => {
-            vehicle.records = [ ... await db.query(
-                `SELECT record_sensor.sensor_id, record_sensor.sensor_type, records.timestamp as timestamp, records.timestamp as date
-                FROM records 
-                JOIN record_sensor ON records.id=record_sensor.record_id
-                WHERE records.mission_id=? AND records.vehicle_id=?`,
-                [
-                    mission.id,
-                    vehicle.id
-                ]
-            )];
-            vehicle.waypoints = await db.query(
-                `SELECT *
-                FROM waypoints 
-                WHERE mission_id=? AND vehicle_id=? 
-                ORDER BY sequence ASC`,
-                [
-                    mission.id,
-                    vehicle.id
-                ]
-            );
-            await asyncForEach(vehicle.records, async (record, index) => {
-                let aux = await db.query(
-                    `SELECT * 
-                    FROM ${record.sensor_type} 
-                    WHERE id=?`,
-                    [
-                        record.sensor_id
-                    ]
-                );
-                aux[0].timestamp = record.timestamp
-                aux[0].date = record.date
-                vehicle.records[index] = aux[0]
-            })
-        })
+        // await asyncForEach(mission.vehicles, async (vehicle) => {
+        //     vehicle.records = [ ... await db.query(
+        //         `SELECT record_sensor.sensor_id, record_sensor.sensor_type, records.timestamp as timestamp, records.timestamp as date
+        //         FROM records 
+        //         JOIN record_sensor ON records.id=record_sensor.record_id
+        //         WHERE records.mission_id=? AND records.vehicle_id=?`,
+        //         [
+        //             mission.id,
+        //             vehicle.id
+        //         ]
+        //     )];
+        //     vehicle.waypoints = await db.query(
+        //         `SELECT *
+        //         FROM waypoints 
+        //         WHERE mission_id=? AND vehicle_id=? 
+        //         ORDER BY sequence ASC`,
+        //         [
+        //             mission.id,
+        //             vehicle.id
+        //         ]
+        //     );
+        //     await asyncForEach(vehicle.records, async (record, index) => {
+        //         let aux = await db.query(
+        //             `SELECT * 
+        //             FROM ${record.sensor_type} 
+        //             WHERE id=?`,
+        //             [
+        //                 record.sensor_id
+        //             ]
+        //         );
+        //         aux[0].timestamp = record.timestamp
+        //         aux[0].date = record.date
+        //         vehicle.records[index] = aux[0]
+        //     })
+        // })
     })
     const meta = {};
 
@@ -81,45 +81,99 @@ async function getAllMissions(){
                 mission.id
             ]
         );
-        await asyncForEach(mission.vehicles, async (vehicle) => {
-            vehicle.records = [ ... await db.query(
-                `SELECT record_sensor.sensor_id, record_sensor.sensor_type, records.timestamp as timestamp, records.timestamp as date
-                FROM records 
-                JOIN record_sensor ON records.id=record_sensor.record_id
-                WHERE records.mission_id=? AND records.vehicle_id=?`,
+        // await asyncForEach(mission.vehicles, async (vehicle) => {
+        //     vehicle.records = [ ... await db.query(
+        //         `SELECT record_sensor.sensor_id, record_sensor.sensor_type, records.timestamp as timestamp, records.timestamp as date
+        //         FROM records 
+        //         JOIN record_sensor ON records.id=record_sensor.record_id
+        //         WHERE records.mission_id=? AND records.vehicle_id=?`,
+        //         [
+        //             mission.id,
+        //             vehicle.id
+        //         ]
+        //     )];
+        //     vehicle.waypoints = await db.query(
+        //         `SELECT *
+        //         FROM waypoints 
+        //         WHERE mission_id=? AND vehicle_id=? 
+        //         ORDER BY sequence ASC`,
+        //         [
+        //             mission.id,
+        //             vehicle.id
+        //         ]
+        //     );
+        //     await asyncForEach(vehicle.records, async (record, index) => {
+        //         let aux = await db.query(
+        //             `SELECT * 
+        //             FROM ${record.sensor_type} 
+        //             WHERE id=?`,
+        //             [
+        //                 record.sensor_id
+        //             ]
+        //         );
+        //         aux[0].timestamp = record.timestamp
+        //         aux[0].date = record.date
+        //         vehicle.records[index] = aux[0]
+        //     })
+        // })
+    })
+    const meta = {};
+    return {
+        missions: data,
+        meta
+    }
+}
+async function getRecordsFromMission(mission_id){
+    let data = false
+
+    let mission_vehicles = await db.query(
+        `SELECT vehicles.id, vehicles.name, vehicles.boat_mark_color, vehicles.boat_waypoint_color 
+        FROM mission_vehicle 
+        JOIN vehicles ON mission_vehicle.vehicle_id=vehicles.id
+        WHERE mission_id=?`,
+        [
+            mission_id
+        ]
+    );
+    data = helper.emptyOrRows(mission_vehicles);
+    await asyncForEach(mission_vehicles, async (vehicle) => {
+        vehicle.records = [ ... await db.query(
+            `SELECT record_sensor.sensor_id, record_sensor.sensor_type, records.timestamp as timestamp, records.timestamp as date
+            FROM records 
+            JOIN record_sensor ON records.id=record_sensor.record_id
+            WHERE records.mission_id=? AND records.vehicle_id=?`,
+            [
+                mission_id,
+                vehicle.id
+            ]
+        )];
+        vehicle.waypoints = await db.query(
+            `SELECT *
+            FROM waypoints 
+            WHERE mission_id=? AND vehicle_id=? 
+            ORDER BY sequence ASC`,
+            [
+                mission_id,
+                vehicle.id
+            ]
+        );
+        await asyncForEach(vehicle.records, async (record, index) => {
+            let aux = await db.query(
+                `SELECT * 
+                FROM ${record.sensor_type} 
+                WHERE id=?`,
                 [
-                    mission.id,
-                    vehicle.id
-                ]
-            )];
-            vehicle.waypoints = await db.query(
-                `SELECT *
-                FROM waypoints 
-                WHERE mission_id=? AND vehicle_id=? 
-                ORDER BY sequence ASC`,
-                [
-                    mission.id,
-                    vehicle.id
+                    record.sensor_id
                 ]
             );
-            await asyncForEach(vehicle.records, async (record, index) => {
-                let aux = await db.query(
-                    `SELECT * 
-                    FROM ${record.sensor_type} 
-                    WHERE id=?`,
-                    [
-                        record.sensor_id
-                    ]
-                );
-                aux[0].timestamp = record.timestamp
-                aux[0].date = record.date
-                vehicle.records[index] = aux[0]
-            })
+            aux[0].timestamp = record.timestamp
+            aux[0].date = record.date
+            vehicle.records[index] = aux[0]
         })
     })
     const meta = {};
     return {
-        missions,
+        vehicles: data,
         meta
     }
 }
@@ -158,42 +212,42 @@ async function getMissionsByVehicleId(vehicle_id){
         ]
     );
     data = helper.emptyOrRows(missions);
-    await asyncForEach(data, async (mission) => {
-        mission.vehicles = await db.query(
-            `SELECT vehicles.id, vehicles.name, vehicles.boat_mark_color, vehicles.boat_waypoint_color 
-            FROM mission_vehicle 
-            JOIN vehicles ON mission_vehicle.vehicle_id=vehicles.id
-            WHERE mission_id=?`,
-            [
-                mission.id
-            ]
-        );
-        await asyncForEach(mission.vehicles, async (vehicle) => {
-            vehicle.records = [ ... await db.query(
-                `SELECT record_sensor.sensor_id, record_sensor.sensor_type, records.timestamp as timestamp, records.timestamp as date
-                FROM records 
-                JOIN record_sensor ON records.id=record_sensor.record_id
-                WHERE records.mission_id=? AND records.vehicle_id=?`,
-                [
-                    mission.id,
-                    vehicle.id
-                ]
-            )];
-            await asyncForEach(vehicle.records, async (record, index) => {
-                let aux = await db.query(
-                    `SELECT * 
-                    FROM ${record.sensor_type} 
-                    WHERE id=?`,
-                    [
-                        record.sensor_id
-                    ]
-                );
-                aux[0].timestamp = record.timestamp
-                aux[0].date = record.date
-                vehicle.records[index] = aux[0]
-            })
-        })
-    })
+    // await asyncForEach(data, async (mission) => {
+    //     mission.vehicles = await db.query(
+    //         `SELECT vehicles.id, vehicles.name, vehicles.boat_mark_color, vehicles.boat_waypoint_color 
+    //         FROM mission_vehicle 
+    //         JOIN vehicles ON mission_vehicle.vehicle_id=vehicles.id
+    //         WHERE mission_id=?`,
+    //         [
+    //             mission.id
+    //         ]
+    //     );
+    //     await asyncForEach(mission.vehicles, async (vehicle) => {
+    //         vehicle.records = [ ... await db.query(
+    //             `SELECT record_sensor.sensor_id, record_sensor.sensor_type, records.timestamp as timestamp, records.timestamp as date
+    //             FROM records 
+    //             JOIN record_sensor ON records.id=record_sensor.record_id
+    //             WHERE records.mission_id=? AND records.vehicle_id=?`,
+    //             [
+    //                 mission.id,
+    //                 vehicle.id
+    //             ]
+    //         )];
+    //         await asyncForEach(vehicle.records, async (record, index) => {
+    //             let aux = await db.query(
+    //                 `SELECT * 
+    //                 FROM ${record.sensor_type} 
+    //                 WHERE id=?`,
+    //                 [
+    //                     record.sensor_id
+    //                 ]
+    //             );
+    //             aux[0].timestamp = record.timestamp
+    //             aux[0].date = record.date
+    //             vehicle.records[index] = aux[0]
+    //         })
+    //     })
+    // })
     const meta = {};
     return {
         missions,
@@ -239,5 +293,6 @@ module.exports = {
     getAllMissions,
     getAllVehicles,
     getMissionsByVehicleId,
-    getMissionsVehicleRecords
+    getMissionsVehicleRecords,
+    getRecordsFromMission
 }

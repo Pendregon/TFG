@@ -9,9 +9,14 @@ import './registerServiceWorker'
 
 Vue.use(Vuex)
 
+let api_url = 'http://localhost:3000/api'
+if(process.env.NODE_ENV != "development")
+	api_url = 'https://atirma.iusiani.ulpgc.es/api'
+
 const store = new Vuex.Store({
 	state: {
-		admin_notifications: []
+		admin_notifications: [],
+		api_url: api_url
 	},
 	mutations: {
 		//notifications related

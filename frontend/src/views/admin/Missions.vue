@@ -44,7 +44,7 @@ export default {
 				}
 			]
 		}
-        axios.get('https://atirma.iusiani.ulpgc.es/api/admin/mission/getAll')
+        axios.get(`${this.$store.state.api_url}/admin/mission/getAll`)
             .then(response => {
                 this.missions = response.data.data
             }).catch(e => {
@@ -60,7 +60,7 @@ export default {
     },
     methods: {
         addMission: function(input_mission){
-            axios.post(`https://atirma.iusiani.ulpgc.es/api/admin/mission`, input_mission)
+            axios.post(`${this.$store.state.api_url}/admin/mission`, input_mission)
                 .then(response => {
                     this.missions = response.data.data
                     this.$store.commit('addNotification', {
@@ -76,7 +76,7 @@ export default {
                 });
         },
         editMission: function(input_mission){
-            axios.put(`https://atirma.iusiani.ulpgc.es/api/admin/mission/${input_mission.id}`, input_mission)
+            axios.put(`${this.$store.state.api_url}/admin/mission/${input_mission.id}`, input_mission)
                 .then(response => {
                     this.missions = response.data.data
                     this.$store.commit('addNotification', {
@@ -92,7 +92,7 @@ export default {
                 });
         },
         deleteMission: function(input_mission){
-            axios.delete(`https://atirma.iusiani.ulpgc.es/api/admin/mission/${input_mission.id}`)
+            axios.delete(`${this.$store.state.api_url}/admin/mission/${input_mission.id}`)
                 .then(response => {
                     this.missions = response.data.data
                     this.$store.commit('addNotification', {
