@@ -157,7 +157,7 @@
 				}else{
 					let some_vehicle_have_records = false
 					item.vehicles.forEach(vehicle => {
-						if(vehicle.records.length > 0){
+						if(vehicle.records && vehicle.records.length > 0){
 							some_vehicle_have_records = true
 						}
 					});

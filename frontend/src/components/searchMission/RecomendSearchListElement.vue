@@ -15,7 +15,7 @@
 				</p>
 			</div>
 			<div class="tools">
-				<button v-for="button in buttons" :key="button.id" @click="button.emit == 'additional_info' ? show_additional_info =! show_additional_info : $emit(button.emit)" :disabled="!button.disabled">
+				<button v-for="button in buttons" :key="button.id" @click="button.emit == 'additional_info' ? show_additional_info =! show_additional_info : $emit(button.emit)" :disabled="button.disabled">
 					{{button.text}}
 				</button>
 			</div>
