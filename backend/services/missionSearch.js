@@ -250,7 +250,7 @@ async function getMissionsByVehicleId(vehicle_id){
     // })
     const meta = {};
     return {
-        missions,
+        missions: data,
         meta
     }
 }

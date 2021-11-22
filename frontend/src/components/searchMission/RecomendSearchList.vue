@@ -52,7 +52,7 @@
 				console.log("Add!")
 			},
 			checkIfMissionButtonIsDisabled: function (item){
-				if(item.vehicles.length == 0){
+				if(!item.vehicles || item.vehicles.length == 0){
 					return true
 				}else{
 					let some_vehicle_have_records = false
