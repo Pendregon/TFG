@@ -4,6 +4,7 @@
 			v-for="mission in missions" 
 			:key="mission.id" 
 			:mission="mission"
+			@change_playing_speed="$emit('change_playing_speed', $event)"
 			@close="$emit('deleteMission', $event)" 
 		/>
 	</div>

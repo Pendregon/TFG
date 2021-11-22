@@ -26,6 +26,12 @@
 			<button v-else @click="mission.current_playing = false">
 				<IconPause />
 			</button>
+			
+			<button @click="change_playing_speed">
+				<IconLowSpeed v-if="this.mission.recording_interval == 1000" />
+				<IconMediumSpeed v-if="this.mission.recording_interval == 10000" />
+				<IconLargeSpeed v-if="this.mission.recording_interval == 100000" />
+			</button>
 			<button @click="$emit('close', mission)">
 				<IconClose />
 			</button>
@@ -137,13 +143,19 @@
 	import IconClose from 'vue-material-design-icons/CloseThick.vue'
 	import IconPlay from 'vue-material-design-icons/Play.vue'
 	import IconPause from 'vue-material-design-icons/Pause.vue'
+	import IconLowSpeed from 'vue-material-design-icons/SpeedometerSlow.vue'
+	import IconMediumSpeed from 'vue-material-design-icons/SpeedometerMedium.vue'
+	import IconLargeSpeed from 'vue-material-design-icons/Speedometer.vue'
 
 	export default {
 		name: 'SelectedMissionItem', 
 		components:{
 			IconClose,
 			IconPlay,
-			IconPause
+			IconPause,
+			IconLowSpeed,
+			IconMediumSpeed,
+			IconLargeSpeed
 		},
 		props: ['mission'],
 		beforeMount() {
@@ -162,6 +174,14 @@
 						}
 					})
 				})
+			},
+			change_playing_speed: function(){
+				if(this.mission.recording_interval == 1000)
+					this.$emit('change_playing_speed', {mission_id:this.mission.id, new_speed:10000})
+				else if(this.mission.recording_interval == 10000)
+					this.$emit('change_playing_speed', {mission_id:this.mission.id, new_speed:100000})
+				else
+					this.$emit('change_playing_speed', {mission_id:this.mission.id, new_speed:1000})
 			}
 		},
 	}

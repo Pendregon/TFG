@@ -28,6 +28,7 @@
 		/>
 		<SelectedMissionsList 
 			:missions="missions"
+			@change_playing_speed="change_playing_speed($event)"
 			@deleteMission="deleteMission($event)"
 		/>
 		<div class="control-buttons">
@@ -266,6 +267,11 @@
 			deleteMission : function (mission) {
 				this.missions.splice(this.missions.indexOf(mission), 1)
             },
+			change_playing_speed: function(data){
+				let founded = this.missions.findIndex(e => e.id == data.mission_id)
+				if(founded > -1)
+					this.missions[founded].recording_interval = data.new_speed
+			},
 			logout : function(){
 				localStorage.setItem('token', null)
 				localStorage.setItem('perms', null)
