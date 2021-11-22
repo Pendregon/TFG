@@ -259,23 +259,9 @@
 							this.missions[founded].is_loading = false
 							this.missions[founded].current_playing = true
 						}
-						//buscar id en this.missions y sustituir la variable vehicles por la nueva y hacer todo lo de abajo
-
 					}).catch(e => {
 						console.log(e);
 					});
-				// new_mission.vehicles.forEach(vehicle => {
-				// 	vehicle.current_playing_record = 0
-				// 	if(vehicle.records.length > 0){
-				// 		if(!vehicle.latLngs) vehicle.latLngs=[[vehicle.records[vehicle.current_playing_record].latitude, vehicle.records[vehicle.current_playing_record].longitude]]
-				// 		if (vehicle.waypoints){
-				// 			vehicle.waypoints_latLngs = []
-				// 			vehicle.waypoints.forEach(waypoint => {
-				// 				vehicle.waypoints_latLngs.push([waypoint.latitude, waypoint.longitude])
-				// 			})
-				// 		}
-				// 	}
-				// })
             },
 			deleteMission : function (mission) {
 				this.missions.splice(this.missions.indexOf(mission), 1)
